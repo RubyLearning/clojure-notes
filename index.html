@@ -1,0 +1,1828 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Clojure Notes</title>
+<meta name="keywords" content="clojure notes,clojure programming,notes on clojure,clojure learning,clojure, clojure for dummies" />
+<meta name="description" content="Clojure notes for beginners to start programming in Clojure." />
+<meta name="robots" content="index,follow" />
+<meta http-equiv="Expires" content="0" />
+<meta name="revisit-after" content="1 days" />
+<link rel="stylesheet" type="text/css" href="static/mystyle.css" />
+<link rel="icon" type="image/ico" href="http://rubylearning.com/images/favicon.ico" />
+
+<!-- Syntax highlighting -->
+<!-- Include required JS files -->
+<script type="text/javascript" src="static/shCore.js"></script>
+<!-- At least one brush, here we choose JS. You need to include a brush for every language you want to highlight -->
+<script type="text/javascript" src="static/shBrushClojure.js"></script>
+<!-- Include *at least* the core style and default theme -->
+<link href="static/shCore.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="Stylesheet" href="static/shThemeDefault.css" />
+<base href="http://clojure-notes.rubylearning.org/" />
+<!-- Google Analytics code -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-59044-14']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- Google Analytics code ends -->
+</head>
+
+<body>
+<div>
+<h1>Clojure Notes <img src="http://rubylearning.com/images/clojure-icon.gif" alt="Clojure"  /></h1>
+<h2>Buy the eBook</h2>
+<p>The <strong><a href="http://clojure-notes.rubylearning.org/clojureforbeginners.html">Clojure for Beginners</a></strong> eBook contains all the topics covered here. The eBook is over 70 pages and is in pdf format. The cost of this eBook is only <b>US$ 7</b> and is being collected to help me maintain the site and the eBook, and also provide quality content to you. Click on the image below to buy the eBook.</p>
+<p class="float-left;"><a href="http://clojure-notes.rubylearning.org/clojureforbeginners.html"><img src="images/cfb.jpg" alt="Clojure for Beginners eBook" title="Clojure for Beginners eBook" /></a></p>
+
+<h2>Table of Contents</h2>
+<ul>
+  <li><span style="color: #663366; font-size:115%">0.0 NOTES FOR WHOM?</span></li>
+  <li><a href="/#preamble">0.1 Preamble</a></li>
+  <li><a href="/#feedback">0.2 Feedback</a></li>
+  <li><span style="color: #663366; font-size:115%">1.0 INTRODUCTION TO CLOJURE</span></li>
+  <li><a href="/#wc">1.1 What is Clojure?</a></li>
+  <li><span style="color: #663366; font-size:115%">2.0 GETTING STARTED</span></li>
+  <li><a href="/#labrepl">2.1 Option: Labrepl Download and Installation (for MS Windows)</a>
+    <ul>
+      <li>2.1.1 What's Labrepl?</li>
+      <li>2.1.2 Downloading and Installing Labrepl (for MS Windows)</li>
+      <li>2.1.3 Starting the REPL</li>
+      <li>2.1.4 Loading a file in the REPL</li>
+    </ul>
+  </li>
+  <li><a href="/#cbdw">2.2 Option: Clojure Box Download and Installation (for MS Windows)</a>
+    <ul>
+      <li>2.2.1 Test if Clojure Box works</li>
+      <li>2.2.2 Loading a file in Clojure Box</li>
+    </ul>
+  </li>
+  <li><a href="/#nbdw">2.3 Option: NetBeans/Enclojure Download  and Installation (for MS Windows)</a>
+    <ul>
+      <li>2.3.1 To create a Clojure Project in NetBeans</li>
+      <li>2.3.2 To start the REPL in NetBeans</li>
+      <li>2.3.3 Anatomy of the Enclojure REPL Panel</li>
+    </ul>
+  </li>
+  <li><a href="/#syntax">2.4 Syntax</a></li>
+  <li><a href="/#com">2.5 Comments</a></li>
+  <li><a href="/#ccg">2.6 Clojure Coding Guidelines &amp; Naming Convention</a></li>
+  <li><a href="/#forms">2.7 Forms</a></li>
+  <li><a href="/#symbols">2.8 Symbols</a></li>
+  <li><a href="/#vandb">2.9 Vars and Bindings</a></li>
+  <li><a href="/#literals">2.10 Literals</a>
+    <ul>
+      <li>2.10.1 Booleans and nil</li>
+      <li>2.10.2 Numbers
+        <ul>
+          <li>2.10.2.1 Arbitrary-precision arithmetic</li>
+          <li>2.10.2.2 format</li>
+        </ul>
+      </li>
+      <li>2.10.3 Characters and Strings</li>
+      <li>2.10.4 Keywords</li>
+    </ul>
+  </li>
+  <li><a href="/#ex110">2.11 Exercises</a>
+    <ul>
+      <li>2.11.1 Exercise 1</li>
+      <li>2.11.2 Exercise 2</li>
+    </ul>
+  </li>
+  <li><span style="color: #663366; font-size:115%">3.0 CHARGING AHEAD</span></li>
+  <li><a href="/#collect">3.1 A Quick look at Collections</a>
+    <ul>
+      <li>3.1.1 Lists</li>
+      <li>3.1.2 Vectors</li>
+      <li>3.1.3 Sets</li>
+      <li>3.1.4 Maps</li>
+      <li>3.1.5 Some functions on collections
+        <ul>
+          <li>3.1.5.1 count function</li>
+          <li>3.1.5.2 reverse function</li>
+          <li>3.1.5.3 apply function</li>
+          <li>3.1.5.4 map function</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="/#seq">3.2 Sequences</a>
+    <ul>
+      <li>3.2.1 seq</li>
+      <li>3.2.2 first</li>
+      <li>3.2.3 rest</li>
+      <li>3.2.4 cons</li>
+      <li>3.2.5 next</li>
+      <li>3.2.6 conj, into</li>
+      <li>3.2.7 range</li>
+      <li>3.2.8 repeat</li>
+      <li>3.2.9 iterate, take</li>
+      <li>3.2.10 concat</li>
+    </ul>
+  </li>
+  <li><a href="/#fc">3.3 Flow Control</a>
+    <ul>
+      <li>3.3.1 if, if-not</li>
+      <li>3.3.2 cond, condp</li>
+      <li>3.3.3 when, when-not</li>
+      <li>3.3.4 do</li>
+    </ul>
+  </li>
+  <li><a href="/#defunc">3.4 Defining Functions</a>
+    <ul>
+      <li>3.4.1 Exercise</li>
+      <li>3.4.2 Exercise</li>
+      <li>3.4.3 Exercise</li>
+    </ul>
+  </li>
+  <li><a href="/#doc">3.5 Documentation</a>
+    <ul>
+      <li>3.5.1 Using doc</li>
+      <li>3.5.2 find-doc</li>
+      <li>3.5.3 Documenting a function</li>
+      <li>3.5.4 Clojure API</li>
+    </ul>
+  </li>
+  <li><span style="color: #663366; font-size:115%">4.0 CLOJURE AND JAVA</span></li>
+  <li><a href="/#java">4.1 Working with Java</a>
+    <ul>
+      <li>4.1.1 Importing multiple classes</li>
+      <li>4.1.2 Create a Java object</li>
+      <li>4.1.3 Accessing methods</li>
+      <li>4.1.4 ..chains</li>
+      <li>4.1.5 doto</li>
+      <li>4.1.6 Accessing static fields</li>
+      <li>4.1.7 Accessing static methods</li>
+      <li>4.1.8 -> macro</li>
+      <li>4.1.9 Exception handling</li>
+      <li>4.1.10 Some More Examples</li>
+      <li>4.1.11 Source for a function</li>
+      <li>4.1.12 Inspector</li>
+    </ul>
+  </li>
+  <li><span style="color: #663366; font-size:115%">5.0 DIVING INTO CLOJURE</span></li>
+  <li><a href="/#ns">5.1 Namespaces</a>
+    <ul>
+      <li>5.1.1 in-ns function</li>
+      <li>5.1.2 ns</li>
+    </ul>
+  </li>
+  <li><a href="/#bind">5.2 More on Bindings</a>
+    <ul>
+      <li>5.2.1 let</li>
+      <li>5.2.2 binding</li>
+    </ul>
+  </li>
+  <li><a href="/#es">5.3 Echo Server</a>
+    <ul>
+      <li>5.3.1 Port</li>
+      <li>5.3.2 Socket</li>
+      <li>5.3.3 clojure-contrib library</li>
+      <li>5.3.4 server-socket API</li>
+      <li>5.3.5 duck-streams API
+        <ul>
+          <li>5.3.5.1 spit function</li>
+        </ul>
+      </li>
+      <li>5.3.6 Step 1: Define a namespace</li>
+      <li>5.3.7 Step 2: Define a port</li>
+      <li>5.3.8 Step 3: Define a function</li>
+      <li>5.3.9 Step 4: Start the server</li>
+      <li>5.3.10 Step 5: Test the Echo Server</li>
+    </ul>
+  </li>
+  <li><a href="/#sm">5.4 StructMaps</a></li>
+  <li><a href="/#refs">5.5 Refs</a></li>
+  <li><a href="/#trans">5.6 Transactions</a>
+    <ul>
+      <li>5.6.1 A Simple Accounts example</li>
+    </ul>
+  </li>
+  <li><a href="/#compile">5.7 Compiling using Clojure Box</a></li>
+  <li><a href="/#ref">References</a></li>
+</ul>
+
+<h2>0.0 NOTES FOR WHOM?</h2>
+<h2><a name="preamble">0.1 Preamble</a></h2>
+<ul>
+<li><b>These study notes are for absolute beginners in Clojure</b>.</li>
+<li>Some previous programming background is essential.</li>
+<li>Some parts require knowledge of <img src="http://rubylearning.com/images/coffee_cup.gif" alt="Java"  /> Java.</li>
+<li>The programs in these study notes have been tested using the Clojure 1.2 version.</li>
+<li>Since I have a Windows box, I have mentioned the installation of Clojure and other dependencies for MS Windows only.</li>
+<li>I recommend that you go through the notes topic by topic (sequentially), reading the text, running the provided examples and doing the assignments along the way. This will give you a much broader understanding of how things are done (and of how you can get things done), and it will reduce the chance of anxiety, confusion, and worse yet, mistakes.</li>
+</ul>
+
+<h2><a name="feedback">0.2 Feedback</a></h2>
+<p>The site is currently in alpha and I need your help to make it a great community resource, so please let me know if you've got any feedback on how to make this site better. Send in your feedback and suggestions to <b>satishtalim [at] gmail [dot] com</b>.</p>
+<p><b>I can send you a .pdf file of these Clojure Notes. Please email me if interested.</b></p>
+
+<h2>1.0 INTRODUCTION TO CLOJURE</h2>
+<h2><a name="wc">1.1 What is Clojure?</a></h2>
+<p><strong>Clojure</strong> is a dynamically-typed, <a href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a> language that runs on the JVM (Java 5 or greater) and provides interoperability with Java.</p>
+
+<p>"A key characteristic of Clojure is that it is a <em>functional language</em>, which means that functions are the fundamental building-block for programs rather than instructions, as is the case in most other programming languages (known as imperative languages). In Clojure, functions are best thought of as more like their counterparts in mathematics – a function is simply an operation that takes a number of parameters (also called arguments), and returns a value. These functions always return the same result when passed the same arguments. Imperative languages perform complex tasks by executing large numbers of instructions, which sequentially modify a program state until a desired result is achieved. Functional languages achieve the same goal through nested function composition – passing the result of one function as a parameter to the next. By composing and chaining function calls, along with recursion (a function calling itself), a functional program can express any possible task that a computer is capable of performing. An entire program can itself be viewed as a single function, defined in terms of smaller functions. The nesting structure determines the computational flow, and all the data is handled through function parameters and return
+values." - From <a href="http://apress.com/book/view/1430272317">Practical Clojure</a>.</p>
+
+<p>A major goal of Clojure is managing <em>concurrency</em>. Wikipedia has a great definition of concurrency: "Concurrency is a property of systems in which several computations are executing and overlapping in time, and potentially interacting with each other. The overlapping computations may be executing on multiple cores in the same chip, preemptively time-shared threads on the same processor, or executed on physically separated processors." The primary challenge of concurrency is managing access to a shared, mutable state.</p>
+
+<p>Clojure helps you write correct concurrent programs by emphasizing immutability. Clojure enforces isolating changes in mutable state as either atomic operation with atoms, within a transaction with <b>refs</b>, or asynchronously with agents. Additionally, there are no explicit locks in Clojure, so this common source of deadlock is removed.</p>
+
+<p>Michael Fogus, author of the book "<a href="http://www.manning.com/fogus/">The Joy of Clojure</a>" says that - "Clojure was born out of creator Rich Hickey's desire to avoid many of the complications, both inherent and incidental, of developing <em>concurrent applications</em> using Java and C++. The Java Virtual Machine is an amazingly practical platform -- it is mature, fast, and widely deployed. It supports a variety of hardware and operating systems and has a staggering number of libraries and support tools available, all of which Clojure can take advantage of, thus allowing prospective developers to avoid the costs of maintaining yet another infrastructure while leveraging existing libraries."</p>
+
+<p>The following shows briefly, the release dates for various versions of Clojure:</p>
+<ul>
+<li>1.2 is expected soon though beta version is available.</li>
+<li>1.1 (the current version) released in Dec. 2009.</li>
+<li>1.0 released in May 2009.</li>
+<li>Clojure was  first released on October 16, 2007.</li>
+</ul>
+
+<h2>2.0 GETTING STARTED</h2>
+<p>There are many options available to download and install Clojure. For options other than MS Windows, please see:</p>
+<ul>
+<li><a href="http://clojure.org/getting_started">Clojure Getting Started</a>.</l1>
+<li><a href="http://programmingzen.com/2010/07/13/how-to-setup-clojure-from-scratch/">How to setup Clojure from scratch</a>.</l1>
+</ul>
+
+<h2><a name="labrepl">2.1 Option: Labrepl Download and Installation (for MS Windows)</a></h2>
+
+<h3>2.1.1 What's Labrepl?</h3>
+<p><span style="background-color: #FFFFCC;"><a href="http://github.com/relevance/labrepl">Labrepl</a> is an environment for exploring the Clojure language</span>. It includes:</p>
+<ul>
+<li>a web application that presents a set of lab exercises with step-by-step instructions</li>
+<li>an interactive repl for working with the lab exercises</li>
+<li>up-to-date versions of Clojure, contrib, incanter, compojure and a bunch of other libraries to explore</li>
+</ul>
+<p>The <a href="http://github.com/relevance/labrepl">Labrepl site</a> mentions how one can use Labrepl on other operating systems.</p>
+
+<h3>2.1.2 Downloading and Installing Labrepl (for MS Windows)</h3>
+<ul>
+<li><a href="http://java.sun.com/javase/downloads/index.jsp">Download and install Java version 6</a> - this is a pre-requisite.</li>
+<li>Next, go to the <a href="http://github.com/relevance/labrepl">Labrepl site</a> and click on the "<b>Download Source</b>" button on the top of the page. A .zip file will get downloaded to your computer. Extract this .zip file to your c: drive. On my computer it created a folder <b>c:\relevance-labrepl-c7d2dc1</b>.</li>
+<li>For Labrepl to work we shall also need <a href="http://github.com/technomancy/leiningen">Leiningen</a>. <span style="background-color: #FFFFCC;">Leiningen is a build tool for Clojure</span>. Leiningen has experimental support for Windows and lacks the <em>self-install</em> feature. For MS Windows you need to download <b><a href="http://github.com/technomancy/leiningen/raw/master/bin/lein.bat">lein.bat</a></b> script, and put it into the folder <b>c:\leiningen</b>.</li>
+<li>Set your system environment variable "<b>PATH</b>" to include the folder <b>c:\leiningen</b> (create folder, if it doesn't exist).</li>
+<li>Create a sub-folder <b>c:\leiningen\lib</b>.</li>
+<li>Next download <b><a href="http://github.com/downloads/technomancy/leiningen/leiningen-1.1.0-standalone.jar">leiningen-1.1.0-standalone.jar</a></b> and copy it to the folder <b>c:\leiningen\lib</b>.</li>
+<li>After this, download the <a href="http://code.google.com/p/clojure/downloads/list">clojure.jar</a> package. A .zip file gets downloaded to your computer. From this .zip file extract <b>clojure.jar</b> and copy it to the <b>c:\leiningen\lib</b> folder.</li>
+<li>Edit lines 14 and 15 of <b>lein.bat</b> to correct the path, namely:
+  <ul>
+    <li><b>set LEIN_JAR=c:\leiningen\lib\leiningen-1.1.0-standalone.jar</b></li>
+    <li><b>set CLOJURE_JAR=c:\leiningen\lib\clojure.jar</b></li>
+  </ul>
+</li>
+<li>Open a new command window and change folder to <b>c:\relevance-labrepl-c7d2dc1</b>. Next type <b>lein deps</b> to install all the dependent libraries. This might take some time.</li>
+<li>Close the command window.</li>
+</ul>
+
+<h3>2.1.3 Starting the REPL</h3>
+<p>Interaction with Clojure is often performed at the <b>REPL (Clojure read-eval-print loop)</b>. To start a REPL, open a new command window and change folder to <b>c:\relevance-labrepl-c7d2dc1</b>. Next type:</p>
+<pre>
+c:\relevance-labrepl-c7d2dc1> script\repl
+</pre>
+
+<p>This starts a new REPL session and you are presented with a simple <b>user=&gt;</b> prompt. It is at this point that REPL waits for user input. <span style="background-color: #FFFFCC;">The <b>user</b> namespace is the REPL default, like the default package in Java</span>. You should treat <b>user</b> as a scratch namespace for exploratory development.</p>
+<p>After <b>user=&gt;</b> type <b>(println "Hello World")</b> and press <b>ENTER</b>:</p>
+<pre>
+user=&gt; (println "Hello World")
+Hello World
+nil
+user=&gt;
+</pre>
+
+<p>The second line above, Hello World, is the console output you requested. The third line, <b>nil</b>, is the return value of the call to Clojure's <span style="background-color: #FFFFCC;"><b>println</b> (the funtion used to display something on the screen)</span>.</p>
+
+<p>For a list of all the functions available in the <b>clojure.core</b> API, see - <a href="http://richhickey.github.com/clojure/clojure.core-api.html">http://richhickey.github.com/clojure/clojure.core-api.html</a>.</p>
+<p>If you get your REPL into a state that confuses you, the simplest fix is to close the command window.</p>
+
+<h3>2.1.4 Loading a file in the REPL</h3>
+<p>If you have a block of code that is too large to conveniently type at the REPL, save the code into a file, and then load that file from the REPL. You can use an absolute path or a path relative to where you launched the REPL.</p>
+<p>Here's how you would load a file in your REPL:</p>
+<pre class="brush: clojure">
+(load-file file-name)
+</pre>
+<p>The <b>load-file</b> function sequentially reads and evaluates the set of forms (more on this later) contained in the file.</p>
+<p><span style="background-color: #FFFFCC;">A Clojure program is stored in a text file with the extension <b>.clj</b></span>.  Let us load the file <b>test.clj</b> located in the folder <b>c:\users\talim\myproject\src\test</b>:</p>
+<pre class="brush: clojure">
+(load-file  "c:/users/talim/myproject/src/test/test.clj") ; => nil
+</pre>
+
+<h2><a name="cbdw">2.2 Option: Clojure Box Download and Installation (for MS Windows)</a></h2>
+<p><b>Note</b>: If you have installed Labrepl then you can ignore this step.</p>
+<ol>
+<li><a href="http://java.sun.com/javase/downloads/index.jsp">Download and install Java version 6</a> - this is a pre-requisite.</li>
+<li>Download and install "Clojure Box". <strong><a href="http://clojure.bighugh.com/">Clojure Box</a></strong> is an all-in-one installer for Clojure on Windows. You simply install and run this one thing, and you get a <b>REPL (Clojure read-eval-print loop)</b> and all the syntax highlighting and editing goodies from clojure-mode and Slime, plus all the power of Emacs under the hood.</li>
+</ol>
+<p><b>Note</b>:</p>
+<ul>
+<li>You can watch a video of "<a href="http://vimeo.com/9219062">Install Clojure - ClojureBox</a>".</li>
+<li>Read the post install notes - <a href="http://bitbucket.org/shoover/clojure-box/src/tip/post-install.txt">http://bitbucket.org/shoover/clojure-box/src/tip/post-install.txt</a>.</li>
+</ul>
+
+<h3>2.2.1 Test if Clojure Box works</h3>
+<p>Interaction with Clojure is often performed at the <b>REPL</b>.</p>
+<p>To test whether Clojure works, double-click on the "Clojure Box" icon on your desktop. This starts a new REPL session and you are presented with a simple <b>user=&gt;</b> prompt. It is at this point that REPL waits for user input. <span style="background-color: #FFFFCC;">The <b>user</b> namespace is the REPL default, like the default package in Java</span>. You should treat <b>user</b> as a scratch namespace for exploratory development.</p>
+<p>After <b>user=&gt;</b> type <b>(println "Hello World")</b> and press <b>ENTER</b>:</p>
+<pre>
+user=&gt; (println "Hello World")
+Hello World
+nil
+user=&gt;
+</pre>
+
+<p>The second line above, Hello World, is the console output you requested. The third line, <b>nil</b>, is the return value of the call to Clojure's <span style="background-color: #FFFFCC;"><b>println</b> (the funtion used to display something on the screen)</span>.</p>
+
+<p>For a list of all the functions available in the <b>clojure.core</b> API, see - <a href="http://richhickey.github.com/clojure/clojure.core-api.html">http://richhickey.github.com/clojure/clojure.core-api.html</a>.</p>
+<p>If you get your REPL into a state that confuses you, the simplest fix is to kill the REPL with Ctrl-C.</p>
+
+<h3>2.2.2 Loading a file in Clojure Box</h3>
+<p>If you have a block of code that is too large to conveniently type at the REPL, save the code into a file, and then load that file from the REPL. You can use an absolute path or a path relative to where you launched the REPL.</p>
+<p>Here's how you would load a file in your REPL:</p>
+<pre class="brush: clojure">
+(load-file file-name)
+</pre>
+<p>The <b>load-file</b> function sequentially reads and evaluates the set of forms (more on this later) contained in the file.</p>
+<p><span style="background-color: #FFFFCC;">A Clojure program is stored in a text file with the extension <b>.clj</b></span>.  Let us load the file <b>test.clj</b> located in the folder <b>c:\users\talim\myproject\src\test</b>:</p>
+<pre class="brush: clojure">
+(load-file  "c:/users/talim/myproject/src/test/test.clj") ; => nil
+</pre>
+
+<h2><a name="nbdw">2.3 Option: NetBeans/Enclojure Download  and Installation (for MS Windows)</a></h2>
+<p><b>Note</b>: If you have installed Labrepl or Clojure Box then you can ignore this step.</p>
+<ol>
+<li><a href="http://java.sun.com/javase/downloads/index.jsp">Download and install Java version 6</a> - this is a pre-requisite.</li>
+<li><a href="http://netbeans.org/downloads/index.html">Download and install NetBeans 6.8</a> (Java SE option).</li>
+<li><a href="http://github.com/EricThorsen/enclojure/downloads">Download the latest Enclojure .nbm file</a>.
+  <ul>
+  <li>In NetBeans go to <b>Tools > Plugins</b>. In the dialog click on <b>Downloaded</b> then click the "<b>Add Plugins...</b>" button.</li>
+  <li>Navigate to the location where you saved the NBM file, select it and click the "<b>Open</b>" button.</li>
+  <li>Highlight "<b>Clojure Plugin</b>" and click the "<b>Install</b>" button.</li>
+  <li>Restart the NetBeans IDE.</li>
+  <li>Next, navigate to <b>Tools > Options > Clojure</b> and at the bottom of the screen select <b>clojure-1.1.0</b> for the Clojure platform. Click the "<b>OK</b>" button.</li>
+  <li>Restart the NetBeans IDE.</li>
+  </ul></li>
+</ol>
+
+<h3>2.3.1 To create a Clojure Project in NetBeans</h3>
+<ol>
+<li>Navigate to <b>File > New Project...</b> Select <b>Categories Clojure</b> and click the "<b>Next</b>" button.</li>
+<li>I created a folder <b>C:\ClojureProjects</b> on my hard disk.</li>
+<li>I typed the following:
+  <ul>
+  <li>Project Name: <b>RL</b></li>
+  <li>Default namespace: <b>com.rl.hello</b></li>
+  <li>Project location: <b>C:\ClojureProjects</b></li>
+  </ul></li>
+<li>Click the "<b>Finish</b>" button.</li>
+</ol>
+
+<h3>2.3.2 To start the REPL in NetBeans</h3>
+<ol>
+<li>Right click on the newly created project namely RL, which you should be seeing in the Projects window.</li>
+<li>Select "<b>Start Project REPL</b>" in the window that pops up.</li>
+</ol>
+
+<h3>2.3.3 Anatomy of the Enclojure REPL Panel</h3>
+<p><b>See</b>: <a href="http://www.enclojure.org/Anatomy+of+the+Enclojure+Repl+Panel">http://www.enclojure.org/Anatomy+of+the+Enclojure+Repl+Panel</a></p>
+<p><b>Note</b>: You can watch a video of "<a href="http://vimeo.com/9220148">Install Clojure - NetBeans</a>".</p>
+
+<h2><a name="syntax">2.4 Syntax</a></h2>
+<p><span style="background-color: #FFFFCC;">Clojure</span> is a Lisp dialect and has a <span style="background-color: #FFFFCC;">syntax</span> that <span style="background-color: #FFFFCC;">uses parentheses and prefix notation</span>. For example, in Java one might write <b>foo(a, b, c)</b>, whereas in a Lisp dialect this becomes <b>(foo a, b, c)</b>. Since the commas are whitespace and Clojure ignores them, it can be simplified further to <b>(foo a b c)</b>. Many text editors and IDEs highlight matching parentheses, so it isn't necessary to count them in order to ensure they are balanced.</p>
+<p><span style="background-color: #FFFFCC;">Clojure is case-sensitive</span>.</p>
+
+<h2><a name="com">2.5 Comments</a></h2>
+<p>Open a new REPL and try out whatever we discuss, from now on.</p>
+<p>There are two ways in which you can comment in Clojure.</p>
+<p>A line comment is:</p>
+<pre class="brush: clojure">
+; This is a single line Clojure comment
+</pre>
+<p>For block comments:</p>
+<pre class="brush: clojure">
+(comment text)
+</pre>
+<p>It should be noted that the block comment form above does have a return value, namely <b>nil</b>. So you can't just "comment out" a piece of your code with it, because it still leaves a trace. <span style="background-color: #FFFFCC;">This form is sometimes used at the end of a source code file</span> to demonstrate usage of an API.</p>
+<p> For example, the Clojure <b>inspector</b> library ends with the following comment, demonstrating the use of the inspector:</p>
+<pre class="brush: clojure">
+(comment
+
+(load-file  "src/inspector.clj" )
+(refer  'inspector)
+(inspect-tree  {:a  1  :b  2  :c  [1  2  3  {:d  4  :e  5  :f  [6  7  8]}]})
+(inspect-table  [[1  2  3][4  5  6][7  8  9][10  11  12]])
+
+)
+</pre>
+
+<h2><a name="ccg">2.6 Clojure Coding Guidelines &amp; Naming Convention</a></h2>
+<ol>
+<li>Use two spaces for indentation.</li>
+<li>Make your names for functions, <b>vars</b> as descriptive as possible, without being overly verbose.</li>
+<li>Use lower-case letters for names.</li>
+<li>The names of predicate functions (returning a truthy (everything not <b>nil</b> or <b>false</b>) or falsy (<b>false</b> and <b>nil</b>) should typically end with a question mark (?).</li>
+<li>End the name of a function in an exclamation mark (!) if it is destructive.</li>
+</ol>
+<p>The obvious exceptions to the guidelines above are when generating Java code, which requires that Java naming conventions be observed.</p>
+<p>For more details please see the <a href="http://www.assembla.com/wiki/show/clojure/Clojure_Library_Coding_Standards">Clojure Library Coding Standards</a>.</p>
+
+<p>The naming convention in Clojure is to <span style="background-color: #FFFFCC;">use all lowercase with hyphens separating words in multi-word names</span>, unlike the Java convention of using camelcase.</p>
+<p><b>An example</b>:</p>
+<pre class="brush: clojure">
+(function-name arg1 arg2 arg3)
+</pre>
+
+<h2><a name="forms">2.7 Forms</a></h2>
+<p> Clojure code is composed of Clojure data. When you  run a Clojure program, a part of Clojure called the reader reads the text of the program in chunks called forms and translates them into Clojure data structures. Clojure then compiles and executes the data structures.</p>
+<p>A Clojure form is basically just an expression. It's any piece of code that evaluates down to a single value.</p>
+<p><span style="background-color: #FFFFCC;">The Clojure <b>forms</b> are: symbols, literals (i.e. booleans, nil, numbers, characters, strings, keywords), lists, vectors, maps and sets</span>.</p>
+
+<h2><a name="symbols">2.8 Symbols</a></h2>
+<p><span style="background-color: #FFFFCC;">Symbols are used to name things</span>. Symbols name all sorts of things in Clojure:</p>
+<ul>
+<li>Functions like <b>str</b> and <b>concat</b></li>
+<li><span style="background-color: #FFFFCC;">Clojure does not have operators</span>. Characters like + - * / are just functions</li>
+<li>Java classes like <b>java.lang.String</b> and <b>java.util.Random</b></li>
+<li>Namespaces like <b>clojure.core</b> and Java packages like <b>java.lang</b></li>
+<li>Data structures and references.</li>
+</ul>
+<p>Symbols <em>cannot</em> start with a number and can consist of alphanumeric characters, plus +, -, *, /, !, ?, ., and _.</p>
+<p>You can call a function through a symbol such as <b>println</b>:</p>
+<pre class="brush: clojure">
+(println "Hello Clojure participants") ; => Hello Clojure participants
+</pre>
+<p>Rather than calling a function through a symbol, you might choose just to retrieve the function itself. The literal representation of a function at the REPL is just a mangled name:</p>
+<pre class="brush: clojure">
+println
+</pre>
+<p>Sometimes you want to refer to the symbol itself, without retrieving whatever it refers to. To do this, you can quote the symbol:</p>
+<pre class="brush: clojure">
+(quote println) ; => println
+</pre>
+<p>Quoting is so common that that there is a sugared form: simply put a single quote in front of any symbol to prevent that form from being evaluated:</p>
+<pre class="brush: clojure">
+'println ; => println
+</pre>
+
+<h2><a name="vandb">2.9 Vars and Bindings</a></h2>
+<p>The <span style="background-color: #FFFFCC;">special form (these are forms evaluated in a special way)</span> <b>def</b> creates a <b>var</b>. If the <b>var</b> did not already exist and no initial value is supplied, the <b>var</b> is unbound. In the code below, x is a symbol which is used to identify the <b>var</b> in the future. At this point, x has no "value", and so we can't refer to it:</p>
+<pre class="brush: clojure">
+(def x) ; => #'user/x
+x ; => java.lang.IllegalStateException: <b>var</b> user/x is unbound.
+</pre>
+
+<p>If called with an additional parameter it creates a root binding or rebinds the <b>var</b> in case it was already bound. This binding is like an "invisible" link between the <b>var</b> and the value. For example, the following <b>def</b> creates a <b>var</b> named user/my-var in the namespace user:</p>
+<pre class="brush: clojure">
+(def my-var 10) ; => #'user/my-var
+</pre>
+<p><span style="background-color: #FFFFCC;">The symbol user/my-var refers to a <b>var</b> that is bound to the value 10. The initial value of a <b>var</b> is called its <em>root binding</em></span>.</p>
+<p>Clojure provides bindings which are like constants in other languages, which are not intended to be changed after a value is assigned. Other threads can then override that binding temporarily. Threads which do not have a thread local binding will inherit the root binding. There are global bindings, thread-local bindings, bindings that are local to a function and bindings that are local to a given form.</p>
+<p>The <b>def</b> special form creates a global binding and optionally gives it a "root value" that is visible in all threads unless a thread-local value is assigned.</p>
+<p>In Clojure, the object that your <b>var</b> is referring to can't change. If you want your <b>var</b> to refer to a different value, you have to rebind it to a new object, a new value. Although vars can be rebound, it is generally not done in a program except to create thread-local bindings.</p>
+
+<h2><a name="literals">2.10 Literals</a></h2>
+<h3>2.10.1 Booleans and nil</h3>
+<p>Clojure’s rules for booleans (<b>true</b> and <b>false</b>) are easy to understand:</p>
+<ol>
+<li><b>true</b> is <b>true</b>, and <b>false</b> is <b>false</b>.</li>
+<li>In addition to <b>false</b>, <b>nil</b> (meaning 'nothing/no-value'- represents Java <b>null</b>) also evaluates to <b>false</b> when used in a boolean context.</li>
+<li><span style="background-color: #FFFFCC;">Other than <b>false</b> and <b>nil</b>, everything else evaluates to <b>true</b> in a boolean context</span>.</li>
+</ol>
+
+<h3>2.10.2 Numbers</h3>
+<p>A number consists of only the digits 0-9, a decimal point '.', a sign ('+' or '-'), and an optional 'e' for numbers written in exponential notation. In addition to these elements, numbers in Clojure can take either octal or hexadecimal form and also include an optional 'M' (this is used to explicitly create a <b>BigDecimal</b>).</p>
+<p>Clojure supports the following numeric types: integer, floating point, ratio.</p>
+<p>Integers comprise the whole number set, both positive and negative. That is, any number starting with an optional sign or digit followed exclusively by digits is considered and stored as an integer. Integers in Clojure can theoretically take an infinitely large value, although in practice the size is limited by the memory available.</p>
+<p>Floating point numbers are of the form of some number of digits, a decimal point, followed by some number of digits. However, floating point numbers can also take an exponential form where a significant part is followed by an exponent part separated by a lower or uppercase 'E'.</p>
+
+<pre class="brush: clojure">
+0x7F ; => hexadecimal number whose value is 127
+0177 ; => octal number whose value is 127
+11.7e-3 ; => 0.0117
+(+ 1 2 3 4) ; => 10
+(/ 22 7) ; => 22/7
+200/5 ; => 40
+</pre>
+<p>In the code above, we first use the + function to add the numbers 1, 2, 3 and 4. The result of <b>(/ 22 7)</b> can be surprising - Clojure has a built in <b>clojure.lang.Ratio</b> type. Using ratios help avoid inaccuracies in long computations. Ratios are represented by an integer numerator and denominator. Also observe that the ratio 200 / 5 will resolve to the integer 40.</p>
+<p>Lets first try a computation of (1/5 * 5/1) as floating point. Later we try the same with Ratio.</p>
+<pre class="brush: clojure">
+(def x (/ 1.0 5.0))
+(def y (/ 5.0 1.0))
+
+(* x y) ; => 1.0
+
+(def p (* x x x x x x x x x x))
+(def q (* y y y y y y y y y y))
+
+(* p q) ; => 1.0000000000000004
+</pre>
+<p>The value of (* p q) above is 1.0000000000000004 instead of 1 which is what we want. This is due to the inaccuracies of x and y multiplying as we create p and q. You really don't want such calculations happening in your financial transactions!</p>
+<p>The same done with ratios below:</p>
+<pre class="brush: clojure">
+(def x (/ 1 5))
+(def y (/ 5 1))
+
+(* x y) ; => 1
+
+(def p (* x x x x x x x x x x))
+(def q (* y y y y y y y y y y))
+
+(* p q) ; => 1
+</pre>
+
+<p>Using a floating point literal instead, we get:</p>
+<pre class="brush: clojure">
+(/ 22.0 7) ; => 3.142857142857143
+</pre>
+
+<h4>2.10.2.1 Arbitrary-precision arithmetic <img src="http://rubylearning.com/images/coffee_cup.gif" alt="Java"  /></h4>
+<p>In Clojure, we can do <b><a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic">arbitrary-precision arithmetic</a></b> - a technique whereby calculations are performed on numbers whose digits of precision are limited only by the available memory of the host system. Clojure relies on Java's <b>BigDecimal</b> class for arbitrary-precision decimal numbers and on Java's <b>BigInteger</b> class for arbitrary-precision integers.</p>
+<p>If you are doing arbitrary-precision math, append M to a number to create a <b>BigDecimal</b> literal:</p>
+<pre class="brush: clojure">
+(+  1  (/  0.00001  1000000000000000000)) ; => 1.0
+(+  1  (/  0.00001M  1000000000000000000)) ; => 1.00000000000000000000001M
+</pre>
+<p><span style="background-color: #FFFFCC;">Clojure objects are Java objects</span> and you can use Java's Reflection API methods such as <b>class</b>, <b>ancestors</b>, and <b>instance?</b> to reflect against the underlying Java object model.</p>
+<pre class="brush: clojure">
+(class (+  1  (/  0.00001M  1000000000000000000))) ; => java.math.BigDecimal
+</pre>
+<p>Clojure's approach to arbitrary-sized integers is simple: just don't worry about it. Clojure will automatically upgrade to <b>Long</b> or <b>BigInteger</b> when you need it. Try creating some small and large integers, and then inspect their class:</p>
+<pre class="brush: clojure">
+(class  (*  100  100  100)) ; => java.lang.Integer
+(class  (*  9000  9000  9000)) ; => java.lang.Long
+(class  (*  9000  9000  9000  9000  9000  9000  9000  9000)) ; => java.math.BigInteger
+</pre>
+
+<h4>2.10.2.2 format</h4>
+<p>Round off a number to say 2 decimal places:</p>
+<pre class="brush: clojure">
+(format "%.2f" 1.2345) ; => "1.23"
+</pre>
+
+<h3>2.10.3 Characters and Strings</h3>
+<p>Clojure character literals are preceded by a backslash. Their literal syntax is \{letter}, where letter can be a letter or the name of a character: backspace, form-feed, newline, return, space, or tab. These yield the corresponding characters.</p>
+
+<p><span style="background-color: #FFFFCC;">Clojure strings are Java strings</span>. They are immutable, and have access to all the underlying Java methods. They are delimited by double quotes ("), and they can span multiple lines. Strings are sequences of characters. The function <b>concat</b> returns a list of character literals, of the elements in the supplied strings:</p>
+<pre class="brush: clojure">
+(concat "Hello" " World")  ; => (\H \e \l \l \o \space \W \o \r \l \d)
+</pre>
+
+<p><span style="background-color: #FFFFCC;">Clojure's <b>str</b> is a function call that concatenates an arbitrary list of arguments into a string</span>:</p>
+<pre class="brush: clojure">
+(str  \h  \e  \l  \l \o \space  \w  \o  \r  \l  \d) ; => "hello world"
+(str "Hello" " " "World") ; => "Hello World"
+</pre>
+
+<p>Standard Java escape characters are supported. If you want to put a double quote inside a string then you have to escape the double quote. <span style="background-color: #FFFFCC;">The backslash is the escape character</span>:</p>
+<pre class="brush: clojure">
+(println "She replied: \"Hello\" to my greetings.") ; => She replied: "Hello" to my greetings.
+</pre>
+
+<h3>2.10.4 Keywords</h3>
+<p><span style="background-color: #FFFFCC;">A keyword is like a symbol, except that keywords begin with a colon (:)</span>. Keywords resolve to themselves:</p>
+<pre class="brush: clojure">
+:foo ; => :foo
+</pre>
+<p>The fact that keywords resolve to themselves makes keywords useful as keys.</p>
+
+<h2><a name="ex110">2.11 Exercises</a></h2>
+
+<h3>2.11.1 Exercise 1</h3>
+<p>Write a Clojure program that displays how old I am, if I am 979000000 seconds old.</p>
+<p><b>Sample solution</b>:</p>
+<pre class="brush: clojure">
+(println "You are" (/ 979000000 60.0 60 24 365) "years old")  ; => You are 31.04388635210553  years old
+; Note that println automatically added a space between its arguments
+</pre>
+
+<p>We can improve upon the above program. It's always better to perform the calculation using exact numbers and then coerce the result if needed (we use <b>float</b> in the example below). This is an advantage which Clojure offers when compared to other languages; you can perform calculations with exact numbers instead of floating point approximations. A better solution would be:</p>
+<pre class="brush: clojure">
+(println "You are" (float (/ 979000000 60 60 24 365)) "years old") ; => You are 31.043886  years old
+</pre>
+
+<h3>2.11.2 Exercise 2</h3>
+<p>Write a Clojure program that tells you how many minutes there are in a year (do not bother right now about leap years etc.).</p>
+<p><b>Sample solution</b>:</p>
+<pre class="brush: clojure">
+(println  "There are" (* 60 24 365) "minutes in a year") ; => There are  525600 minutes in a year
+</pre>
+
+<h2>3.0 CHARGING AHEAD</h2>
+<h2><a name="collect">3.1 A Quick look at Collections</a></h2>
+<p>Clojure provides the collection types list, vector, set and map. <span style="background-color: #FFFFCC;">The Clojure collection types are immutable, heterogeneous and persistent</span>. By <span style="background-color: #FFFFCC;">immutable</span> it means that their contents cannot be changed. By <span style="background-color: #FFFFCC;">heterogeneous</span> it means that they <span style="background-color: #FFFFCC;">can hold any kind of object</span>. Bt <span style="background-color: #FFFFCC;">persistent</span> it means that when a new version of a collection is created by adding or removing something from it, <span style="background-color: #FFFFCC;">the new version shares structure with the old one</span>. The old version will be accessible only when we hold a reference to its head otherwise it will be garbage collected.</p>
+
+<h3>3.1.1 Lists</h3>
+<p>Lists are written with parenthesis. Lists are the traditional LISP singly linked lists. Lists can contain items of any type, including other collections:</p>
+<pre class="brush: clojure">
+; Empty list
+() ; => ()
+(class ()) ; => clojure.lang.PersistentList$EmptyList
+
+'(a b c) ; => (a b c)
+(class '(a b c)) ; => clojure.lang.PersistentList
+</pre>
+
+<p>A list is "just data," but it is also used to call functions. They are ideal when new items will be added to or removed from the front. <span style="background-color: #FFFFCC;">Lists are not efficient for finding items by index</span>.</p>
+<p>An example of a list whose first item names a Clojure function:</p>
+<pre class="brush: clojure">
+(+  1  2)
+</pre>
+<p><span style="background-color: #FFFFCC;">In Clojure, data and code have the same representation. <b>(a b c)</b> is a call to a function named a with arguments b and c. To make this data instead of code, the list needs to be quoted. <b>'(a b c)</b> or <b>(quote (a b c))</b> is a list of the values a, b and c</span>.</p>
+
+<h3>3.1.2 Vectors</h3>
+<p>Vectors are essentially like dynamically-sized arrays. Vectors store a series of values like lists do and can be used like lists, except that they can be indexed by integers. Vectors are written with square brackets:</p>
+<pre class="brush: clojure">
+[1 2 3] ; => [1 2 3]
+
+(class [1 2 3]) ; => clojure.lang.PersistentVector
+
+[ ] ; => [ ]
+(class [ ]) ; => clojure.lang.PersistentVector
+</pre>
+
+<p>Vectors are ideal when new items will be added to or removed from the back. <span style="background-color: #FFFFCC;">Vectors are efficient for finding or changing items by index</span> i.e. vectors are functions of their indices:</p>
+<pre class="brush: clojure">
+; retrieve an element by its index
+(["hello" "world" 1 2 3] 1) ; => "world"
+</pre>
+<p><b>Note</b>: Unless the list characteristic of being more efficient at adding to or removing from the front is significant for a given use, <span style="background-color: #FFFFCC;">vectors are typically preferred over lists</span>. This is mainly due to the vector syntax of [...] being a bit more appealing than the list syntax of '(...). It doesn't have the possibility of being confused with a call to a function, macro or special form.</p>
+
+<h3>3.1.3 Sets</h3>
+<p>Sets are collections of <em>unique</em> items. Sets are zero or more forms enclosed in braces preceded by #. The #{} reader macro is only for hash sets:</p>
+<pre class="brush: clojure">
+#{ } ; => #{ }
+(class #{ }) ; => clojure.lang.PersistentHashSet
+
+#{:a :b :c} ; => #{:a :b :c}
+</pre>
+
+<p><span style="background-color: #FFFFCC;">Sets are preferred over lists and vectors when duplicates are not allowed and items do not need to be maintained in the order in which they were added</span>. Clojure supports two kinds of sets, unsorted and sorted. Hash sets are generally preferred over sorted sets as they are much faster. Sorted sets are important when keeping things sorted is very important. Here are some more ways to create a set:</p>
+<pre class="brush: clojure">
+(sorted-set "Mandy" "Anita" "Rich") ; #{"Anita" "Mandy" "Rich"}
+(hash-set "Mandy" "Anita" "Rich") ; #{"Anita" "Mandy" "Rich"}
+
+; duplicates are removed
+(hash-set "Rich" "Mandy" "Anita" "Rich") ; #{"Anita" "Mandy" "Rich"}
+</pre>
+
+<h3>3.1.4 Maps</h3>
+<p><span style="background-color: #FFFFCC;">Maps are zero or more key/value pairs where both can be any kind of object and enclosed in braces</span>. Maps store unique keys and one value per key. Often keywords are used for map keys:</p>
+<pre class="brush: clojure">
+{ } ; => { }
+(class { }) ; => clojure.lang.PersistentArrayMap
+
+{:Ruby  "Matz"  :Clojure  "Hickey"} ; => {:Ruby  "Matz"  :Clojure  "Hickey"}
+</pre>
+<p>You can use a map directly, it is not necessary to bind it to a name:</p>
+<pre class="brush: clojure">
+(:a {:a 1, :b 2}) ; => 1
+</pre>
+
+<p>We can use <b>def</b> to save the map into a Clojure <b>var</b>:</p>
+<pre class="brush: clojure">
+(def  inventors  {:Ruby  "Matz"  :Clojure  "Hickey"})
+</pre>
+
+<p>Commas are considered whitespace, and can be used to separate the pairs:</p>
+<pre class="brush: clojure">
+(def  inventors  {:Ruby  "Matz",  :Clojure  "Hickey"})
+</pre>
+
+<p>Maps are functions. If you pass a key to a map, it will return that key’s value, or it will return <b>nil</b> if the key is not found:</p>
+<pre class="brush: clojure">
+(:Clojure inventors) ; => Hickey
+(inventors :Java) ; => nil
+</pre>
+
+<p>The <b>keys</b> function returns a sequence of the map's keys:</p>
+<pre class="brush: clojure">
+; Usage: (keys map)
+(keys inventors) ; => (:Ruby :Clojure)
+</pre>
+
+<p>The <b>vals</b> function returns a sequence of the map's values:</p>
+<pre class="brush: clojure">
+; Usage: (vals map)
+(vals inventors) ; => ("Matz" "Hickey")
+</pre>
+
+<h3>3.1.5 Some functions on collections</h3>
+<p>There are many core functions that operate on all kinds of collections;  far too many to describe here. A small subset of them is described next, mostly using vectors and sometimes lists.</p>
+
+<h4>3.1.5.1 count function</h4>
+<p>The <b>count</b> function returns the number of items in any collection.</p>
+<pre class="brush: clojure">
+(count [22 "green" false]) ; => 3
+
+; empty collections correctly return 0
+(count '()) ; => 0
+</pre>
+
+<h4>3.1.5.2 reverse function</h4>
+<p>The <b>reverse</b> function returns a sequence of the items in the collection in reverse order.</p>
+<pre class="brush: clojure">
+(reverse [2 42 72]) ; => (72 42 2)
+
+(reverse '(2 42 72)) ; => (72 42 2)
+
+; strings are collections too
+(reverse "hello") ; => (\o \l \l \e \h)
+</pre>
+
+<h4>3.1.5.3 apply function</h4>
+<p>The <b>apply</b> function returns the result of a given function when all the items in a given collection are used as arguments.</p>
+<pre class="brush: clojure">
+(apply - [34 23 9])  ; => 2
+</pre>
+
+<h4>3.1.5.4 map function</h4>
+<pre class="brush: clojure">
+(map f coll)
+</pre>
+<p><b>map</b> takes a source collection coll and a function f, and it returns a new sequence by <em>invoking f on each element in the coll</em>.</p>
+<pre class="brush: clojure">
+(map * [1 2 3 4] [1 2 3 4]) ; => (1 4 9 16)
+</pre>
+
+
+<h2><a name="seq">3.2 Sequences</a></h2>
+<p>A <b>sequential collection</b> is one that holds a series of values without reordering them.</p>
+<p>A <b>sequence</b> is a sequential collection that represents a series of values that may or may not exist yet. They may be values from a concrete collection, or values that are computed as necessary. <em>A sequence may be empty</em>.</p>
+<p><span style="background-color: #FFFFCC;">Sequences include Java collections, Clojure-specific collections, strings, streams, directory structures and XML trees</span>. Because so many things are sequences, the sequence library is very powerful. Remember that <span style="background-color: #FFFFCC;">the sequence library can be used with all collections (lists, vectors, sets, maps ...)</span>.</p>
+<p><span style="background-color: #FFFFCC;"><b>Important</b>: Most Clojure sequences are <em>lazy</em> i.e. they generate elements only when they are actually needed. Clojure sequences are <em>immutable</em>: they never change</span>.</p>
+
+<h3>3.2.1 seq</h3>
+<p>The <b>seq</b> function turns any core collections into something called a <b>seq</b> i.e. the <b>seq</b> function will return a <b>seq</b> on any seq-able collection (<b>coll</b>):</p>
+<pre class="brush: clojure">
+(seq  coll)
+</pre>
+<p><b>seq</b> will return <b>nil</b> if its <b>coll</b> is empty or nil.</p>
+<p><b>An example</b>:</p>
+<pre class="brush: clojure">
+(seq [1 2 3]) ; => (1 2 3)
+
+(seq [ ]) ; => nil
+</pre>
+
+<h3>3.2.2 first</h3>
+<p>You can get the first item in a sequence:</p>
+<pre class="brush: clojure">
+(first  aseq)
+</pre>
+<p><b>first</b> returns <b>nil</b> if its argument is empty or nil.</p>
+<p><b>An example</b>:</p>
+<pre class="brush: clojure">
+(first [34 23 15]) ; => 34
+
+(first [ ]) ; => nil
+</pre>
+
+<h3>3.2.3 rest</h3>
+<p>You can get everything after the first item, in other words, the rest of a sequence:</p>
+<pre class="brush: clojure">
+(rest  aseq)
+</pre>
+<p><b>rest</b> returns an empty seq (not <b>nil</b>) if there are no more items.</p>
+<p><b>An example</b>:</p>
+<pre class="brush: clojure">
+(rest [34 23 15]) ; => (23 15)
+
+(rest [ ]) ; => ()
+
+(class (rest [ ])) ; => clojure.lang.PersistentList$EmptyList
+</pre>
+
+<h3>3.2.4 cons</h3>
+<p>You can construct a new sequence by adding an item to the front of an existing sequence:</p>
+<pre class="brush: clojure">
+(cons  elem  aseq)
+</pre>
+
+<p><b>An example</b>:</p>
+<pre class="brush: clojure">
+(cons 1 [2 3 4]) ; => (1 2 3 4)
+</pre>
+<p>Under the hood, <b>first</b>, <b>rest</b> and <b>cons</b> are declared in a Java interface <b>clojure.lang.ISeq</b>.</p>
+
+<h3>3.2.5 next</h3>
+<p>The <b>next</b> function will return the seq of items after the first:</p>
+<pre class="brush: clojure">
+(next  aseq)
+</pre>
+<p><b>(next aseq)</b> is equivalent to <b>(seq (rest aseq))</b>.</p>
+<p><b>Examples</b>:</p>
+<pre class="brush: clojure">
+(next [1 2 3 4]) ; => (2 3 4)
+(next [ ]) ; => nil
+</pre>
+
+<h3>3.2.6 conj, into</h3>
+<pre class="brush: clojure">
+(conj  coll  element  &amp;  elements)
+(into  to-coll  from-coll)
+</pre>
+<p><b>conj</b> adds one or more elements to a collection, and <b>into</b> adds all the items in one collection to another. For lists, <b>conj</b> and <b>into</b> add to the front:</p>
+<pre class="brush: clojure">
+(conj  '(10  20  30)  :a) ; => (:a 10 20 30)
+
+(into  '(10  20  30)  '(:a  :b  :c)) ; => (:c :b :a 10 20 30)
+</pre>
+
+<p>For vectors, <b>conj</b> and <b>into</b> add elements to the back:</p>
+<pre class="brush: clojure">
+(conj  [10  20  30]  :a) ; => [10 20 30 :a]
+
+(into  [10  20  30]  [:a  :b  :c]) ; => [10 20 30 :a :b :c]
+</pre>
+
+<h3>3.2.7 range</h3>
+<p><b>range</b> produces a sequence from a start to an end, incrementing by step each time. Ranges include their start, but not their end. If you do not specify them, start defaults to zero, and step defaults to 1.</p>
+<pre class="brush: clojure">
+(range  10  20  2) ; => (10 12 14 16 18)
+</pre>
+
+<h3>3.2.8 repeat</h3>
+<p>The <b>repeat</b> function repeats an element p n times:</p>
+<pre class="brush: clojure">
+(repeat  5  "p") ; => ("p" "p" "p" "p" "p")
+</pre>
+
+<h3>3.2.9 iterate, take</h3>
+<pre class="brush: clojure">
+(iterate  f  x)
+</pre>
+
+<p><b>iterate</b> begins with a value x and continues forever, applying a function f to each value to calculate the next.</p>
+<p>If you begin with 1 and iterate with <b>inc</b>, you can generate the whole numbers:</p>
+<pre class="brush: clojure">
+(take  10  (iterate  inc  1)) ; => (1 2 3 4 5 6 7 8 9 10)
+</pre>
+<p>Since the sequence is infinite, you need another new function to help you view the sequence from the REPL.</p>
+<pre class="brush: clojure">
+(take  n  sequence)
+</pre>
+
+<p><b>take</b> returns a lazy sequence of the first n items from a collection and provides one way to create a finite view onto an infinite collection.</p>
+<p>The following example creates a lazy seq of all natural numbers:</p>
+<pre class="brush: clojure">
+(def natural-numbers (iterate inc 0))
+</pre>
+<p>An usage example:</p>
+<pre class="brush: clojure">
+(take 5 natural-numbers) ; => (0 1 2 3 4)
+</pre>
+
+<h3>3.2.10 concat</h3>
+<p>The <b>concat</b> function can be used for plain concatenation of any collection:</p>
+<pre class="brush: clojure">
+(concat [22 "green" false] [33 44]) ; => (22 "green" false 33 44)
+
+; the two collections can be of different types
+(concat #{22 "green" false} '(33 44)) ; => ("green" false 22 33 44)
+</pre>
+
+<h2><a name="fc">3.3 Flow Control</a></h2>
+<h3>3.3.1 if, if-not</h3>
+<p>Clojure’s <b>if</b> evaluates its first argument. If the argument is logically true, it returns the result of evaluating its second argument. If you want to define a result for the "else" part of if, add it as a third argument (but this is optional):</p>
+<pre class="brush: clojure">
+(println (if  (&lt;  34  100)  "yes" ))
+; => yes
+
+(println (if 0 "Zero  is  true"  "Zero  is  false")) ; => Zero  is  true
+</pre>
+<p>If the first argument to <b>if</b> is logically false and you didn't specify an else form, it returns <b>nil</b>:</p>
+<pre class="brush: clojure">
+(if  (&lt;  50000  100)  "yes" )
+; => nil
+</pre>
+
+<p>The <b>if-not</b> macro does the inverse of what the <b>if</b> special form does. The general structure of this macro is:</p>
+<pre class="brush: clojure">
+(if-not test consequent alternative?)
+</pre>
+<p>Here, if the test is false, the consequent is evaluated, else if it is true and the alternative is provided, it is evaluated instead.</p>
+
+<h3>3.3.2 cond, condp</h3>
+<p><b>cond</b> is like the case statement of Clojure. The general form looks like the following:</p>
+<pre class="brush: clojure">
+(cond &amp; clauses)
+</pre>
+<p>Here's an example:</p>
+<pre class="brush: clojure">
+(def x 10)
+(cond
+(&lt; x 0) (println "Negative!")
+(= x 0) (println "Zero!"))
+; => nil
+
+(cond
+(&lt; x 0) (println "Negative!")
+(= x 0) (println "Zero!")
+:default (println "Positive!"))
+; => Positive!
+</pre>
+<p>As you can see, the clauses are a pair of expressions, each of the form <em>test consequent</em>. Each test expression is evaluated in sequence, and when one returns true, the associated consequent is evaluated and returned. If none return true, <b>nil</b> is returned. If a <b>:default</b> is provided, the associated consequent is evaluated and returned instead.</p>
+
+<p>The general form of <b>condp</b> looks like the following:</p>
+<pre class="brush: clojure">
+(condp pred expr &amp; clauses)
+</pre>
+
+<p><span style="background-color: #FFFFCC;">The <b>condp</b> macro is similar to a case statement in other languages</span>. It takes a two parameter predicate (this is mostly <b>=</b> or <b>instance?</b>) and an expression to act as its second argument. After those it takes any number of value/result expression pairs that are evaluated in order. If the predicate evaluates to <b>true</b> when one of the values is used as its first argument then the corresponding result is returned. An optional final argument is the result to be returned if no given value causes the predicate to evaluate to true. If this is omitted and no given value causes the predicate to evaluate to true then an <b>IllegalArgumentException</b> is thrown:</p>
+<pre class="brush: clojure">
+(condp = 1
+    1 "Clojure"
+    2 "Ruby"
+    3 "Java"
+    "Sorry, no match")
+; => "Clojure"
+
+(condp = 5
+    1 "Clojure"
+    2 "Ruby"
+    3 "Java"
+    "Sorry, no match")
+; => "Sorry, no match"
+</pre>
+
+<h3>3.3.3 when, when-not</h3>
+<p>The <b>when</b> form is similar to the <b>if</b> form. The differences are that there is no "else" condition, and more than one expression can be added to the <b>when</b> form for evaluation when the condition is true.</p>
+<pre class="brush: clojure">
+(when true "do-this-first" "then-that" "finally this") ; => "finally this"
+</pre>
+<p><b>when-not</b> is the opposite of <b>when</b>, in that it evaluates its body if the test returns false.</p>
+<pre class="brush: clojure">
+(when-not true "do-this-first" "then-that" "finally this") ; => nil
+
+(when-not false "do-this-first" "then-that" "finally this") ; => "finally this"
+</pre>
+
+<h3>3.3.4 do</h3>
+<p>The <b>do</b> form is used to execute a number of operations in sequence. Clojure provides the <b>println</b> form for writing to standard output. In order to use <b>println</b> within an expression whose return value we care about, we need to put it in a <b>do</b> expression:</p>
+<pre class="brush: clojure">
+(do (println "Hello.") (+ 2 2))
+Hello.
+4
+
+(do (println "Hello.") (println "Hello again.") (+ 2 2))
+Hello.
+Hello again.
+4
+</pre>
+<p>The <b>do</b> operation executes each expression in sequence and returns the result of the last expression.</p>
+
+<p><b>do</b> is useful when you want to include a sequence of actions in a position where only a single form is expected, e.g. for having various statements in a branch of an <b>if</b>.</p>
+<p>Here's a contrived example:</p>
+<pre class="brush: clojure">
+(if (odd? 3) (println "First true form") (println "Second true form (will not print)")) ; => First true form
+
+(if (odd? 3) (do (println "First true form") (println "Second true form (will print)")))
+; => First true form
+; => Second true form (will print)
+</pre>
+<p><b>if</b> only accepts one form as <b>if</b> and <b>else</b> branch, so if you want to have several statements in either, you'll have to wrap them in a <b>do</b>. In the first statement above, the second true from will not print, since Clojure sees it as the else-branch. In the second it prints, because <b>do</b> is considered one form.</p>
+
+<h2><a name="defunc">3.4 Defining Functions</a></h2>
+<p>The <b>defn</b> macro defines a function. Its arguments are the function name, an optional documentation string, the parameter list (specified with a vector that can be empty) and the function body. The result of the last expression in the body is returned. Every function returns a value, but it may be <b>nil</b>.</p>
+<pre class="brush: clojure">
+(defn my-function
+  "returns a String"
+  [name]
+  (str "Goodbye, " name)) ; concatenation
+
+(println (my-function "Satish")) ; => Goodbye, Satish
+</pre>
+
+<p><b>Note</b>: If you are wondering how to figure out which function is a macro or not, in your REPL session type:</p>
+<pre>
+user=> (:macro (meta #'defn))
+true
+</pre>
+
+<p><span style="background-color: #FFFFCC;">Function definitions must appear before their first use</span>. Sometimes this isn't possible due to a set of functions that invoke each other. The <b>declare</b> special form takes any number of function names and creates forward declarations that resolve these cases:</p>
+<pre class="brush: clojure">
+(declare function-names)
+</pre>
+<p><b>defn-</b> works just like <b>defn</b> but <span style="background-color: #FFFFCC;">functions defined with the <b>defn-</b> macro are private</span> and are hardly secure.  This means they are only visible in the namespace in which they are defined. It is trivial to access a private <b>var</b> and as such, <b>defn-</b> should not be used as a security measure. You could use <b>defn-</b> to create some helper functions that shouldn't be exposed outside the namespace.</p>
+<pre>
+user=> (ns sqr)
+(defn- sq [x] (* x x))
+(defn sum-of-squares [p q] (+ (sq p) (sq q)))
+#'sqr/sum-of-squares
+
+sqr> (sum-of-squares 4 5) ; => 41
+
+sqr> (sq 5)
+java.lang.Exception: Unable to resolve symbol: sq in this context
+</pre>
+
+<p>If you call a function with an incorrect number of arguments, Clojure will throw an <b>IllegalArgumentException</b>.</p>
+<p><span style="background-color: #FFFFCC;">Functions can take a variable number of parameters</span> (note that there are no commas delimiting the function parameters). Optional parameters must appear at the end. They are gathered into a list by adding an ampersand and a name for the list at the end of the parameter list:</p>
+
+<pre class="brush: clojure">
+(defn  dating  [person &amp; who-all]
+(println  person "are dating" (count who-all)  "people." ))
+
+(dating "You" "1" "2" "3") ; => You are dating 3 people.
+
+; dating function called with only the mandatory parameter
+(dating "You") ; => You are dating 0 people.
+</pre>
+<p>Clojure functions are "first-class" functions i.e. Clojure functions can be stored, passed and returned just as any other piece of data within that language. Thus, <span style="background-color: #FFFFCC;">Clojure functions can be stored in <b>vars</b>, held in lists and other collection types, be passed as arguments to and even returned as the result of other functions</span>.</p>
+
+<p><span style="background-color: #FFFFCC;">Function definitions can contain more than one parameter list and corresponding body</span>. Each parameter list must contain a different number of parameters. This supports <em>overloading</em> functions. Note that overloading of Clojure functions are based on arity (arity refers to the differences in the argument count that a function will accept) and not on type:</p>
+<pre class="brush: clojure">
+(defn greet
+    ([] (greet " world"))
+    ([name] (str "Hello " name)))
+</pre>
+<p><span style="background-color: #FFFFCC;">Anonymous functions have no name</span>. These are often passed as arguments to a named function. When an anonymous function is defined using the <b>fn</b> special form, the body can contain any number of expressions.</p>
+<pre class="brush: clojure">
+((fn [x] (+ x 1)) 9) ; => 10
+</pre>
+<p>Functions can be bound to a symbol:</p>
+<pre class="brush: clojure">
+(def plus-one
+  (fn [x] (+ x 1)))
+
+(plus-one 9) ; => 10
+</pre>
+<p>An anonymous function can also be defined in the short way using <b>#(...)</b>.  The parameters are named %1, %2, and so on. You can also use % for the first parameter.</p>
+<pre class="brush: clojure">
+(#(apply str %1 %2) "Hello" " World") ; => Hello World
+</pre>
+
+<p>Finally remember that, <span style="background-color: #FFFFCC;">Clojure function calls are Java method calls</span>.</p>
+
+<h3>3.4.1 Exercise</h3>
+<p>Write a function called convert that takes one argument which is a temperature in degrees Fahrenheit. This function should return the temperature in degrees Celsius.</p>
+<p><b>Sample Solution</b>:</p>
+<pre class="brush: clojure">
+(defn convert
+  [fahr]
+  (float (* (- fahr 32) 5/9))) ; Note the use of Clojure Ratio
+
+(println ( str "The temperature in Celcius = " (convert 75))) ; => The temperature in Celcius = 23.88889
+</pre>
+
+<h3>3.4.2 Exercise</h3>
+<p>Write a method leap-year? It should have as an argument a year value, check whether it's a leap year and then return <b>true</b> or <b>false</b>. A leap year is every 4 years, but not every 100 years, then again every 400 years.</p>
+<p><b>Sample Solution</b>:</p>
+<pre class="brush: clojure">
+(defn leap-year?
+  [input-year]
+  (or (and (= (rem input-year 4) 0) (> (rem input-year 100) 0)) (= (rem input-year 400) 0)))
+
+(leap-year? 2100) ; => false
+</pre>
+<p><b>Note</b>:</p>
+<ul>
+<li><b>(= x y)</b> - Here <b>=</b> is the equality function and returns <b>true</b> if x equals y, <b>false</b> if not.</li>
+<li><b>(rem num div)</b> - Here <b>rem</b> gives us the remainder of dividing numerator by denominator.</li>
+<li><b>and</b> macro evaluates exprs one at a time, from left to right. If a form returns logical false (<b>nil</b> or <b>false</b>), "and" returns that value and doesn't evaluate any of the other expressions, otherwise it returns the value of the last expr. (<b>and</b>) returns <b>true</b>.</li>
+<li><b>or</b> macro evaluates exprs one at a time, from left to right. If a form returns a logical <b>true</b> value, "or" returns that value and doesn't evaluate any of the other expressions, otherwise it returns the value of the last expression. (<b>or</b>) returns <b>nil</b>.</li>
+</ul>
+
+<h3>3.4.3 Exercise</h3>
+<p>Create a <b>divides?</b> predicate that takes a dividend and a divisor, and returns true if divisor evenly divides the dividend:</p>
+<p><b>Sample Solution</b>:</p>
+<pre class="brush: clojure">
+(defn divides?
+  "Does divisor divide dividend evenly?"
+  [dividend divisor]
+  (zero? (rem dividend divisor)))
+</pre>
+<p><b>Note</b>:</p>
+<ul>
+<li><b>zero?</b> returns true if the argument to <b>zero?</b> is zero, else false.</li>
+</ul>
+
+<h2><a name="doc">3.5 Documentation</a></h2>
+<h3>3.5.1 Using doc</h3>
+<p>Nearly all the forms in Clojure have built-in documentation. If you want to read the doc at the REPL, you can just ask for the function’s <b>doc</b> string:</p>
+<pre>
+user=> (doc first)
+-------------------------
+clojure/first
+([coll])
+  Returns the first item in the collection. Calls seq on its
+    argument. If coll is nil, returns nil.
+nil
+user=>
+</pre>
+<p><b>doc</b> will also tell you if a form is implemented as a macro:</p>
+<pre>
+user=> (doc and)
+-------------------------
+clojure.core/and
+([] [x] [x &amp; next])
+Macro
+  Evaluates exprs one at a time, from left to right. If a form
+  returns logical false (nil or false), and returns that value and
+  doesn't evaluate any of the other expressions, otherwise it returns
+  the value of the last expr. (and) returns true.
+nil
+user=>
+</pre>
+
+<h3>3.5.2 find-doc</h3>
+<p>The <b>find-doc</b> function will search for anything whose doc output matches a regular expression or string you pass in. Example:</p>
+<pre class="brush: clojure">
+(find-doc "list")
+</pre>
+<p><span style="background-color: #FFFFCC;">Regular expressions in Clojure look like strings prepended by an #</span>. Use a regular expression to find all the <b>find-</b> functions:</p>
+<pre class="brush: clojure">
+(find-doc #"find-\w+")
+</pre>
+
+<h3>3.5.3 Documenting a function</h3>
+<p>Every function can have a doc description (similar to Javadoc) attached to it, like:</p>
+<pre>
+user=> (defn plus-one
+  "Returns a number one greater than x"
+  [x]
+  (+ x 1))
+#'user/plus-one
+
+user=> (doc plus-one)
+-------------------------
+user/plus-one
+([x])
+  Returns a number one greater than x
+nil
+user=>
+</pre>
+
+<h3>3.5.4 Clojure API</h3>
+<p>Clojure’s complete API is documented online at <a href="http://clojure.org/api">http://clojure.org/api</a>. The right sidebar links to all functions and macros by name, and the left sidebar links to a set of overview articles on various Clojure features.</p>
+
+<h2>4.0 CLOJURE AND JAVA</h2>
+<h2><a name="java">4.1 Working with Java</a> <img src="http://rubylearning.com/images/coffee_cup.gif" alt="Java"  /></h2>
+<p><b>Note</b>: This section requires you to have knowledge of the Java programming language.</p>
+<h3>4.1.1 Importing multiple classes</h3>
+<p><b>Note</b>: Clojure programs can use all Java classes and interfaces. As in Java, classes in the <b>java.lang</b> package can be used without importing them. Java classes in other packages can be used by either specifying their package when referencing them or using the <b>import</b> function (use <b>import</b> to refer to Java classes in the current namespace).</p>
+<pre class="brush: clojure">
+(import  'java.util.Random)
+</pre>
+
+<p><b>import</b> also takes a variable number of lists, with the first part of each list being a package name and the rest being names to import from that package:</p>
+<pre class="brush: clojure">
+(import  '(java.util  Random  Locale)
+         '(java.text  MessageFormat))
+</pre>
+
+<h3>4.1.2 Create a Java object</h3>
+<p>Assuming that you have used the <b>import</b> form as shown above, we can create a Java object of <b>Random</b> as follows:</p>
+<pre class="brush: clojure">
+(Random.) ; note the .
+</pre>
+
+<p>Note the existence of the <b>(new)</b> special form. The <b>(ClassName.)</b> form is simply a macro for <b>(new ClassName)</b>:</p>
+<pre class="brush: clojure">
+(macroexpand '(Date.)) ; => (new Date)
+</pre>
+<p><b>Note</b>: The <b><a href="http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/macroexpand">macroexpand</a></b> function returns a macro form's expansion.</p>
+
+<p>To use a <b>Random</b>, you will need to save it away somewhere. For now, simply use <b>def</b> to save the <b>Random</b> into a Clojure <b>var</b>:</p>
+<pre class="brush: clojure">
+(import  '(java.util  Random))
+(def rnd (Random.))
+</pre>
+
+<h3>4.1.3 Accessing methods</h3>
+<p><b>Random</b> also has a <b>nextInt( )</b> method that takes an argument. You can call it by:</p>
+<pre class="brush: clojure">
+(import  '(java.util  Random))
+(def rnd (Random.))
+(.nextInt rnd 10)
+</pre>
+<p>Also, note that <b>(.methodName obj)</b> is a macro for <b>(. obj methodName)</b>:</p>
+<pre class="brush: clojure">
+(macroexpand '(.toString (Date.))) ; => (. (Date.) toString)
+</pre>
+
+<p>If you can't remember all the methods in the <b>Random</b> class, you can pass either a class or an instance to javadoc:</p>
+<pre class="brush: clojure">
+(javadoc java.util.Random)
+</pre>
+
+<h3>4.1.4 ..chains</h3>
+<p>The (..) macro chains together multiple member accesses by making each result the <b>this</b> object for the next member access in the chain. Thus looking up an object’s code URL becomes the following:</p>
+<pre class="brush: clojure">
+(..  '(1  2)  getClass  getProtectionDomain  getCodeSource  getLocation)
+</pre>
+<p><b>Note</b>:</p>
+<ul>
+<li>The .. reads left to right, like Java. The .. macro is great if the result of each operation is an input to the next.</li>
+<li>It is possible to pass arguments in the intermediate function calls.</li>
+</ul>
+
+<h3>4.1.5 doto</h3>
+<p> Sometimes you don’t care about the results of method calls and simply want to make several calls on the same object. <span style="background-color: #FFFFCC;">The <b>doto</b> macro makes it easy to make several calls on the same object</span>. For example, use <b>doto</b> to set multiple system properties:</p>
+<pre class="brush: clojure">
+(doto  (System/getProperties)
+  (.setProperty  "name"  "Stuart")
+  (.setProperty  "favoriteColor"  "blue"))
+</pre>
+<p><b>doto</b> returns the object at the end. This is very useful for Java Swing classes:</p>
+<pre>
+(doto (javax.swing.JPanel.) (.setEnabled false) (.setToolTipText "Not available"))
+; => #&lt;JPanel javax.swing.JPanel[,0,0,0x0,invalid,disabled,layout=java.awt.FlowLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]&gt;
+</pre>
+
+<h3>4.1.6 Accessing static fields</h3>
+<pre class="brush: clojure">
+(Math/PI) ; => 3.141592653589793
+
+(System/getProperty "java.home") ; => "C:\\Program Files\\Java\\jdk1.6.0_20\\jre"
+</pre>
+
+<h3>4.1.7 Accessing static methods</h3>
+<p>For static methods, you can use (Classname/membername):</p>
+<pre class="brush: clojure">
+(System/currentTimeMillis) ; => 1272362112453
+</pre>
+
+<h3>4.1.8 -> macro</h3>
+<pre>
+(import [java.util Date Random])
+(Date. (long (.nextInt (Random.)))) ; => #&lt;Date Sat Jan 10 06:37:47 IST 1970&gt;
+</pre>
+<p>In the above code, starting from the inside, you:</p>
+<ol>
+<li>get a new <b>Random</b></li>
+<li>get the next random integer</li>
+<li>cast it to a <b>long</b></li>
+<li>pass the <b>long</b> to the <b>Date</b> constructor</li>
+</ol>
+<p>The above is a bit confusing for beginners new to Clojure. You don't have to write inside-out code in Clojure. The <b>-></b> macro takes its first form, and passes it as the first argument to its next form. The result then becomes the first argument of the next form, and so on. It is easier to read than to describe:</p>
+<pre>
+(import [java.util Date Random])
+(-> (Random.) (.nextInt) (long) (Date.)) ; => #&lt;Date Sat Jan 10 06:37:47 IST 1970&gt;
+</pre>
+
+
+<h3>4.1.9 Exception handling</h3>
+<p><span style="background-color: #FFFFCC;">All exceptions thrown by Clojure code are runtime exceptions</span>. Java methods invoked from Clojure code can still throw checked exceptions. In Clojure, you are not forced to deal with checked exceptions. You do not have to catch them or declare that you throw them. The <b>try</b>, <b>catch</b>, <b>finally</b> and <b>throw</b> special forms provide functionality similar to their Java counterparts.</p>
+<p>Let's look at an example:</p>
+<pre class="brush: clojure">
+(/ 1 0) ; => java.lang.ArithmeticException: Divide by zero
+</pre>
+<p>In the above case we see an <b>java.lang.ArithmeticException</b> being thrown. This is a runtime exception which is thrown by the underlying JVM.</p>
+<p>The following shows how runtime exceptions like <b>java.lang.ArithmeticException</b> can be handled:</p>
+<pre class="brush: clojure">
+(try (/ 1 0)
+      (catch Exception e (prn "in catch"))
+      (finally (prn "in finally")))
+"in catch"
+"in finally"
+nil
+</pre>
+<p><b>Note</b>: The <b>pr</b> and <b>prn</b> functions prints the object(s) to the output stream that is the current value of <b>*out*</b>. <b>pr</b> prints the object(s), separated by spaces if there is more than one. By default, <b>pr</b> and <b>prn</b> print in a way that objects can be read by the reader. <b>prn</b> is the same as <b>pr</b> followed by (newline).</p>
+
+<h3>4.1.10 Some More Examples</h3>
+<pre class="brush: clojure">
+(.toUpperCase "hello") ; => HELLO
+(.length "hello") ; => 5
+</pre>
+<p>In the next example, let's write a <b>parse</b> helper function:</p>
+<pre class="brush: clojure">
+(defn parse [s]
+  (try (Double/parseDouble (.trim s))
+       (catch NumberFormatException e nil)))
+
+(parse "22") ; => 22.0
+(parse "     23.45   ") ; => 23.45
+(parse "asas") ; => nil
+</pre>
+<p>In the following example, the <b>display</b> helper function takes a number, rounds it to the nearest Integer (because Integers are prettier), and returns a String:</p>
+<pre class="brush: clojure">
+(defn display [n]
+  (str (Math/round (float n))))
+
+(display 22.5) ; => "23"
+(display 22/7) ; => "3"
+</pre>
+
+<h3>4.1.11 Source for a function</h3>
+<p>You can use Clojure to tell you the source for a function. To use this functionality, you’ll need to import the <b>repl-utils</b> library:</p>
+<pre>
+user=> (use 'clojure.contrib.repl-utils)
+nil
+
+user=> (source println)
+(defn println
+  "Same as print followed by (newline)"
+  [&amp; more]
+    (binding [*print-readably* nil]
+      (apply prn more)))
+nil
+user=>
+</pre>
+
+<h3>4.1.12 Inspector</h3>
+<p>One useful utility built into Clojure is the ability to pop up a Swing app that can <a href="http://richhickey.github.com/clojure/clojure.inspector-api.html">inspect</a> a data structure. To start using it, type:</p>
+<pre class="brush: clojure">
+(use 'clojure.inspector) ; => nil
+</pre>
+<p>You can use the generic <b>inspect</b> function to look at arbitrary objects:</p>
+<pre class="brush: clojure">
+(inspect (System/getProperties))
+</pre>
+
+<h2>5.0 DIVING INTO CLOJURE</h2>
+<h2><a name="ns">5.1 Namespaces</a></h2>
+<p>Clojure partitions things that are named by symbols into namespaces. There is always a current default namespace, initially set to "user", and it is stored in the special symbol *ns*. The "user" namespace provides access to all the symbols in the <b>clojure.core</b> namespace.</p>
+<p>Clojure respects Java naming conventions for directories and files, but Lisp naming conventions for namespace names. So a Clojure namespace <b>com.my-app.utils</b> would live in a path named <b>com/my_app/utils.clj</b>. Note especially the underscore/hyphen distinction.</p>
+
+<h3>5.1.1 in-ns function</h3>
+<p>The default namespace can be changed by the <b>in-ns</b> function. Let's create a "notes" namespace:</p>
+<pre class="brush: clojure">
+(in-ns 'notes) ; => #&lt;Namespace notes&gt;
+</pre>
+<p>Now you are in the "notes" namespace, and anything you <b>def</b> or <b>defn</b> will belong to "notes". When you create a new namespace with <b>in-ns</b>, the <b>java.lang</b> package is automatically available to you.</p>
+<h3>5.1.2 ns</h3>
+<p>The general form of the <b>ns</b> macro is:</p>
+<pre class="brush: clojure">
+(ns name &amp; references)
+</pre>
+<p>The default namespace can be changed by the <b>ns</b> macro. The name, as mentioned above, is the name of the namespace being made current. If it doesn't already exist, it gets created. The references that follows the name are optional, and can be one or more of the following – <b>use</b>, <b>require</b>, <b>import</b>, <b>load</b>, <b>gen-class</b>, or <b>load</b>.</p>
+<p>The <b>ns</b> macro will create a new namespace that contains mappings for the classnames in <b>java.lang</b> and for the functions in <b>clojure.core</b>.</p>
+<p><b>Note</b>: In order to access items that are not in the default namespace they must be namespace-qualified. This is done by preceding a name with a namespace name and a slash (whereas Java package names are separated from a class name with a period). <span style="background-color: #FFFFCC;">Use "<b>use</b>" to load and refer Clojure libraries</span>. For example, the <b>round</b> function lives in <b>clojure.contrib.math</b>. In order to make <b>round</b> available in the current namespace, call <b>use</b> on round's namespace:</p>
+<pre class="brush: clojure">
+(use  'clojure.contrib.math) ; => nil
+</pre>
+<p>The simple form of <b>use</b> shown above causes the current namespace to refer to all public <b>vars</b> in <b>clojure.contrib.math</b>. This can be confusing, because it does not make explicit which names are being referred to. Remember to pass the <b>:only</b> option to <b>use</b>, listing only the vars you need:</p>
+<pre class="brush: clojure">
+(use  '[clojure.contrib.math  :only  (round)]) ; => nil
+</pre>
+<p>Now you can call <b>round</b> without having to qualify its name:</p>
+<pre class="brush: clojure">
+(round  1.6) ; => 2
+</pre>
+<p>The <b>ns</b> macro, mentioned earlier, changes the default namespace. It is typically used at the top of a source file. It supports the directives <b>:require</b>, <b>:use</b> and <b>:import</b> (for importing Java classes) that are alternatives to using their function forms. Using these is preferred over using their function forms. Here, <span style="background-color: #FFFFCC;">symbols become keywords, and quoting is no longer required</span>.</p>
+<pre class="brush: clojure">
+(ns notes
+  (:use [clojure.contrib.math :only (gcd, sqrt)])
+  (:import (java.text NumberFormat) (javax.swing JFrame JLabel)))
+
+(println (gcd 27 81)) ; => 27
+(println (sqrt 7)) ; => 2.6457513110645907
+(println (.format (NumberFormat/getInstance) Math/PI)) ; => 3.142
+
+; the code below requires you to have knowledge of the Java programming language
+; also see the generated image below
+(doto (JFrame. "Hello")
+  (.add (JLabel. "Hello, World!"))
+  (.pack)
+  (.setDefaultCloseOperation JFrame/EXIT_ON_CLOSE)
+  (.setVisible true))
+</pre>
+<p><img src="http://rubylearning.com/images/clojure.jpg" alt="Screenshot"  /></p>
+
+<h2><a name="bind">5.2 More on Bindings</a></h2>
+<p><b>An example:</b></p>
+<pre class="brush: clojure">
+(def cnt 1) ; cnt is a global binding
+
+(defn fn1
+  []
+  (println "Global binding value of fn1 = " cnt))
+
+(fn1) ; Global binding value of fn1 =  1
+</pre>
+
+<h3>5.2.1 let</h3>
+<p><span style="background-color: #FFFFCC;">The <b>let</b> special form creates bindings that are local to that form</span>. Its first argument is a vector containing name/expression pairs. The expressions are evaluated in order (i.e. <span style="background-color: #FFFFCC;"><b>let</b> does its bindings <em>sequentially</em></span>) and their results are assigned to the names on their left. These bindings can be used in the expressions that follow them in the vector. They can also be assigned to more than once to change their value. The remaining arguments to <b>let</b> comprise the body which is a set of expressions to be evaluated with the new bindings in scope. <span style="background-color: #FFFFCC;">Functions that are called in the body cannot see the local bindings created by <b>let</b></span>.</p>
+<p>Do check-out the <b>let</b> <a href="http://clojure.org/special_forms#let">documentation</a>.</p>
+<p><b>An example:</b></p>
+<pre class="brush: clojure">
+(def x 1)
+(def y 1)
+(let [x 2 y x]
+  (+ x y)) ; => 4
+
+x ; => 1
+y ; => 1
+</pre>
+
+<p><b>Another example:</b></p>
+<pre class="brush: clojure">
+(def cnt 1) ; cnt is a global binding
+
+(defn fn1
+  []
+  (println "Global binding value in fn1 = " cnt))
+
+(defn fn2
+  []
+  (println "fn2: before let cnt (still global binding) =" cnt)   ; fn2: before let cnt (still global binding) = 1
+  (let [cnt 2]                                                   ; creates local binding cnt that shadows global one
+    (println "fn2: in let, cnt (now local binding) =" cnt)       ; fn2: in let, cnt (now local binding) = 2
+    (fn1))                                                       ; Global binding value in fn1 =  1
+  (println "fn2: after let cnt (back to global binding) =" cnt)) ; fn2: after let cnt (back to global binding) = 1
+
+(fn2)
+</pre>
+
+<h3>5.2.2 binding</h3>
+<p>The <span style="background-color: #FFFFCC;"><b>binding</b></span> special form is similar to <b>let</b>, but it <span style="background-color: #FFFFCC;">temporarily gives new, thread-local values to existing global bindings</span>. The new values are seen inside that form and also in functions called from inside it. When the <b>binding</b> form exits, the bindings revert to their previous values.</p>
+<p><b>An example:</b></p>
+<p><span style="background-color: #FFFFCC;">Observe below that <b>binding</b> does its bindings in parallel</span>.</p>
+<pre class="brush: clojure">
+(def x 1)
+(def y 1)
+(binding [x 2 y x]
+  (+ x y)) ; => 3
+x ; => 1
+y ; => 1
+</pre>
+<p><b>Another example:</b></p>
+<pre class="brush: clojure">
+(def cnt 1) ; cnt is a global binding
+
+(defn fn1
+  []
+  (println "Global binding value in fn1 = " cnt))
+
+(defn fn3
+  []
+  (println "fn3: before binding cnt (still global binding) =" cnt)                    ; fn3: before binding cnt (still global binding) = 1
+  (binding [cnt 3]                                                                    ; same global binding with new, temporary value
+    (println "fn3: in binding, cnt (global binding value temporarily changed) =" cnt) ; fn3: in binding, cnt (global binding value temporarily changed) = 3
+    (fn1))                                                                            ; Global binding value in fn1 =  3
+  (println "fn3: after binding cnt (value of global binding reverted back) =" cnt))   ; fn3: after binding cnt (value of global binding reverted back) = 1
+
+(fn3)
+</pre>
+
+<p>Symbols that are intended to be bound to new, thread-local values using <b>binding</b> have their own naming convention. These special symbols have names that begin and end with an asterisk. People sometimes refer to the asterisks as "earmuffs".</p>
+
+<p>For example, Clojure uses dynamic binding for thread-wide options such as the standard I/O streams <b>*in*</b>, <b>*out*</b> and <b>*err*</b>. The predefined, special symbols <b>*in*</b>, <b>*out*</b> and <b>*err*</b> are set to <b>stdin</b>, <b>stdout</b> and <b>stderr</b> by default. Functions that use these bindings are affected by their values. For example, binding a new value to <b>*out*</b> changes the output destination of the <b>println</b> function.</p>
+
+<p><b>Guideline</b>: <span style="background-color: #FFFFCC;">As far as possible use <b>let</b>. Use <b>binding</b> when you need a thread-local version of a <b>var</b></span>.</p>
+
+<h2><a name="es">5.3 Echo Server</a></h2>
+<p>We shall build a simple server that accepts network connections and simply echoes back whatever was sent.</p>
+
+<h3>5.3.1 Port</h3>
+<p>A port is not a physical device, but an abstraction to facilitate communication between a server and a client.</p>
+<p>Ports are described by a 16-bit integer value. Hence, a machine can have a maximum of 65536 port numbers (ranging from 0 to 65535). The port numbers are divided into three ranges: the Well Known Ports, the Registered Ports, and the Dynamic and/or Private Ports. The Well Known Ports are those from 0 through 1023 (for example, port no. 80 is for http, port no. 25 is for smtp and so on). The Registered Ports are those from 1024 through 49151. The Dynamic and/or Private Ports are those from 49152 through 65535.</p>
+
+<h3>5.3.2 Socket</h3>
+<p>A socket is not a physical device but an abstraction. It represents a single connection between two network applications. These two applications normally run on different computers, but sockets can also be used for inter-process communication on a single computer. Applications can create multiple sockets for communicating with each other. Sockets are bidirectional, meaning that either side of the connection is capable of both sending and receiving data.</p>
+
+<h3>5.3.3 clojure-contrib library</h3>
+<p>The user contributions library, <b>clojure.contrib</b>, is a collection of namespaces each of which implements features that may be useful to a large part of the clojure community. Some parts of <b>clojure.contrib</b> may migrate into <b>clojure.core</b> if they prove to be so generally useful.</p>
+<p>See the <b>clojure.contrib</b> API here - <a href="http://richhickey.github.com/clojure-contrib/index.html">http://richhickey.github.com/clojure-contrib/index.html</a>.</p>
+
+<h3>5.3.4 server-socket API</h3>
+<p>To build this simple server, we shall make use of the <b><a href="http://richhickey.github.com/clojure-contrib/server-socket-api.html">server-socket</a></b> API from the <b>clojure.contrib</b> library. We shall use the following from this API:</p>
+<pre class="brush: clojure">
+(ns your-namespace
+  (:require clojure.contrib.server-socket))
+
+(create-server port fun)
+</pre>
+<p>The above code creates a server socket on port. When accepting a connection, a new thread is created which calls:</p>
+<pre class="brush: clojure">
+(fun input-stream output-stream)
+</pre>
+
+<h3>5.3.5 duck-streams API</h3>
+<p>We shall also make use of the <b><a href="http://richhickey.github.com/clojure-contrib/duck-streams-api.html">duck-streams</a></b> API from the <b>clojure.contrib</b> library. We shall use the following from this API:</p>
+<pre class="brush: clojure">
+(ns your-namespace
+  (:require clojure.contrib.duck-streams))
+</pre>
+<p>This library defines "duck-typed" I/O utility functions for Clojure. The '<b>reader</b>' and '<b>writer</b>' functions will open and return an instance of <b>java.io.BufferedReader</b> and <b>java.io.PrintWriter</b>, respectively, for a variety of argument types - filenames as strings, URLs, java.io.File's, etc.  'reader' even works on HTTP URLs.</p>
+
+<h4>5.3.5.1 spit function</h4>
+<p>Let's make a little diversion. We shall have a look at the <b>spit</b> function from the <b>clojure.contrib</b> library. This function is not used in the Echo Server.</p>
+<p>Usage:</p>
+<pre class="brush: clojure">
+(spit f content)
+</pre>
+<p>Opens f with writer, writes content, then closes f.</p>
+<p>Here's an example:</p>
+<pre class="brush: clojure">
+(use  '[clojure.contrib.duck-streams  :only  (spit)])
+(spit  "rubylearning.out"  "Hello  RubyLearning participants.")
+</pre>
+<p>You should now find a file at <b>rubylearning.out</b> with contents <b>Hello  RubyLearning participants.</b></p>
+
+<h3>5.3.6 Step 1: Define a namespace</h3>
+<pre class="brush: clojure">
+(ns echo
+  (:use [clojure.contrib server-socket duck-streams]))
+</pre>
+
+<h3>5.3.7 Step 2: Define a port</h3>
+<pre class="brush: clojure">
+(def port 2222)
+</pre>
+<p>Our server socket would be listening on this port defined by the <b>port</b> variable.</p>
+
+<h3>5.3.8 Step 3: Define a function</h3>
+<p>Our function <b>handle-client</b> takes two arguments named <b>in</b> and <b>out</b>. In this case it will be streams attached to the client's socket.</p>
+<p><b>binding</b> binds names to new values temporarily. <b>in</b> and <b>out</b> are the default streams that the standard IO functions read from (<b>stdin</b>) and write to (<b>stdout</b>). But within the body of this <b>binding</b> block, they will now refer to readers and writers for the client socket. This way we can use functions like <b>read-line</b> and <b>println</b> to communicate with the client. In fact, in our block we read a line and print it out. <b>loop</b> begins the loop and <b>recur</b> returns to the start of the loop.</p>
+<pre class="brush: clojure">
+(defn handle-client [in out]
+  (binding [*in* (reader in)
+            *out* (writer out)]
+    (loop []
+      (println (read-line))
+      (recur))))
+</pre>
+
+<h3>5.3.9 Step 4: Start the server</h3>
+<p>To start the server, type the following in your REPL:</p>
+<pre class="brush: clojure">
+(def server (create-server port handle-client))
+</pre>
+<p>Finally we call <b>create-server</b> with two arguments - the port number and the function we want to handle the client connections. We keep this in the <b>server var</b>. A lot of the concurrency issues are handled by Clojure inside the <b>create-server</b> function. We don't have to worry about firing-up threads or doing other kinds of listeners. It will handle that under the covers. So that's it for a simple echo server. Our echo server is running at port 2222 on localhost.</p>
+<p>Here's the complete code of our Echo Server:</p>
+<pre class="brush: clojure">
+(ns echo
+  (:use [clojure.contrib server-socket duck-streams]))
+
+(def port 2222)
+
+(defn handle-client [in out]
+  (binding [*in* (reader in)
+                  *out* (writer out)]
+    (loop []
+       (println (read-line))
+       (recur))))
+
+(def server (create-server port handle-client))
+</pre>
+
+<h3>5.3.10 Step 5: Test the Echo Server</h3>
+<p>Open a command window and use Telnet to connect to our Echo Server:</p>
+<pre class="brush: clojure">
+telnet localhost 2222
+</pre>
+<p>Now anything I type in will be echoed back.</p>
+
+<h2><a name="sm">5.4 StructMaps</a></h2>
+<p>The <b>defstruct</b> macro is used to define a StructMap:</p>
+<pre class="brush: clojure">
+(defstruct account-struct  :name :balance)
+</pre>
+<p>The structure field names of type keyword or symbols are automatically usable as functions to access fields of the structure. This is possible as structures are maps and this feature is supported by maps. This is not possible for other types of field names such as strings or numbers. <span style="background-color: #FFFFCC;">It is quite common to use keywords for field names for structures</span> due to the above reason.</p>
+<p><span style="background-color: #FFFFCC;">The object returned by <b>defstruct</b> is what is called the <b>structure basis</b></span>. This is not a structure instance but contains information of what the structure instances should look like.</p>
+
+<p>New instances of a given StructMap are created using <b>struct</b>. Values must be specified in the same order as their corresponding keys were specified when the StructMap was defined. Values for keys at the end can be omitted and their values will be <b>nil</b>:</p>
+<pre class="brush: clojure">
+(def account (struct account-struct "Michael" 5000))
+
+account ; => {:name "Michael", :balance 5000}
+
+(:name account) ; => "Michael"
+</pre>
+<p><span style="background-color: #FFFFCC;">New keys not specified when the StructMap was defined can be added to <em>instances</em>. However, keys specified when the StructMap was defined cannot be removed from <em>instances</em></span>:</p>
+<pre class="brush: clojure">
+(def account-sm (struct-map account-struct  :title "programmer" :name "Daniel" :balance 4000))
+
+account-sm ; => {:name "Daniel", :balance 4000, :title "programmer"}
+</pre>
+
+<p>As structures are maps, new fields can also be added to <em>structure instances</em> using <b>assoc</b>.</p>
+<pre class="brush: clojure">
+account ; => {:name "Michael", :balance 5000}
+
+(def account-new (assoc account :title "programmer")) ; => {:name "Michael", :balance 5000, :title "programmer"}
+
+(:title account-new) ; => "programmer"
+</pre>
+
+<p><b>assoc</b> can also be used to "update" a structure:</p>
+<pre class="brush: clojure">
+account ; => {:name "Michael", :balance 5000}
+
+(assoc account :balance 6000) ; => {:name "Michael", :balance 6000}
+
+account ; => {:name "Michael", :balance 5000} ; note that 'account' is immutable and did not change
+</pre>
+
+<p><b>dissoc</b> can be used to remove these instance specific keys. Note however that struct base keys cannot be removed.</p>
+<pre class="brush: clojure">
+account-new ; => {:name "Michael", :balance 5000, :title :address}
+
+(def account-new2 (dissoc account-new :title)) ; this works as :title are instance specific keys
+
+account-new2 ; => {:name "Michael", :balance 5000}
+
+(dissoc account-new2 :balance) ; this fails. base keys cannot be dissociated
+; => java.lang.Exception: Can't remove struct key
+</pre>
+
+<h2><a name="refs">5.5 Refs</a></h2>
+<p>Most objects in Clojure are immutable. When you really want mutable data, you must be explicit about it, such as by creating a mutable reference (<b>ref</b>) to an immutable object. You create a <b>ref</b> with this:</p>
+<pre class="brush: clojure">
+(ref  initial-state)
+</pre>
+<p>For example,  you could create a reference to your current residential address:</p>
+<pre class="brush: clojure">
+(def current-addr (ref "Vasant Villa, 759/43 Deccan Gym., Pune"))
+</pre>
+<p>The <b>ref</b> wraps and protects access to its internal state. To read the contents of the reference, you can call <b>deref</b>:</p>
+<pre class="brush: clojure">
+(deref current-addr) ; => "Vasant Villa, 759/43 Deccan Gym., Pune"
+</pre>
+<p>The <b>deref</b> function can be shortened to the <b>@</b> reader macro:</p>
+<pre class="brush: clojure">
+@current-addr ; => "Vasant Villa, 759/43 Deccan Gym., Pune"
+</pre>
+<p>An address is an immutable entity. It doesn't change into another address when you move to a new address. But your current address is a reference to an entity, and it can change.</p>
+<p>In Rich Hickey's words - "In languages like Java and C++ there is a conflation of the concept of an identity with its state, which is a value. Clojure deals primarily with values. Refs are a way to create identities, which can point to different values (have different states), over time. As such, unlike the private state of a Java object, the value of a <b>ref</b> is not ‘owned by’ the ref."</p>
+
+
+<h2><a name="trans">5.6 Transactions</a></h2>
+<p>Because <b>refs</b> are mutable, you must protect their updates. In many languages, you would use a lock for this purpose. In Clojure, you can use a transaction (<a href="http://en.wikipedia.org/wiki/Software_transactional_memory">STM</a>). <b>Refs</b> can only be modified inside a transaction. Transactions are wrapped in a <b>dosync</b>. You can change where a reference points with <b>ref-set</b>.</p>
+<p>The <b>dosync</b> macro starts a transaction that continues while the expressions in its body are evaluated. The <b>ref-set</b> function changes the in-transaction value of a <b>ref</b> and returns it. It must be called inside a transaction, otherwise an <b>IllegalStateException</b> is thrown. The change will only be visible outside the transaction if and when the transaction commits. This happens when a <b>dosync</b> exits without an exception being thrown:</p>
+<pre class="brush: clojure">
+(ref-set current-addr  "13 Kanchan-Shri, Shirole Road, Pune") ; => java.lang.IllegalStateException
+
+; The current-addr reference will now refer to a different address
+(dosync
+  (ref-set current-addr "13 Kanchan-Shri, Shirole Road, Pune")) ; => "13 Kanchan-Shri, Shirole Road, Pune"
+
+@current-addr ; => "13 Kanchan-Shri, Shirole Road, Pune"
+</pre>
+<p>The <b>alter</b> function is used for changes that must be made in a specific order. The <b>commute</b> function is used for changes whose order is not important and can be performed in parallel. Both functions must be called inside a transaction. </p>
+<pre class="brush: clojure">
+(dosync (alter current-addr (fn [_] "13 Kanchan-Shri, Shirole Road, Pune"))) ; => "13 Kanchan-Shri, Shirole Road, Pune"
+</pre>
+<p><b>Note</b>: In the example above we have used an underscore (_), which is used as a placeholder for function parameters that won't be used and therefore don't need a name.</p>
+<p><b>Another example</b>: Suppose we want to add one to the value of a <b>ref</b> named counter. This could be implemented as follows, using <b>inc</b> for the update function:</p>
+<pre class="brush: clojure">
+(def counter (ref 0))
+(dosync (alter counter inc)) ; => 1
+</pre>
+<p><b>Note</b>:</p>
+<ul>
+<li>We could have used any other function (even our own) in place of <b>inc</b>.</li>
+<li>The function passed to <b>alter</b> function takes the current value of the <b>ref</b> as the first argument and must not have side effects as it may be called more than once.</li>
+</ul>
+
+<h3>5.6.1 A Simple Accounts example</h3>
+<p>The following example involves a simple account and its transactions. The <b>comment</b> form in the example explains the usage of this program:</p>
+<pre class="brush: clojure">
+;;;    accounts.clj
+;;;    *acc is a temporary var to store the instance
+;;;    Author: Baishampayan Ghose
+
+
+; Change the default namespace to accounts
+(ns accounts)
+
+
+; Create a structure basis called acct-struct
+(defstruct acct-struct :name :balance)
+
+
+(defn make-account
+  "Create a new account"
+  [acct-name op-balance]
+  ;; op-balance should be stored in a ref so that we can modify it in
+  ;; a concurrent manner
+  ;; Use struct to create a new instance of StructMap
+  (struct acct-struct acct-name (ref op-balance)))
+
+
+(defn account-balance
+  "Get the balance from an account"
+  [acc]
+  ;; read the contents of the reference with @
+  @(:balance acc))
+
+
+(defn deposit
+  "Deposit amount into acc"
+  [acc amount]
+  (dosync
+   (commute (:balance acc) + amount)))
+
+
+(def *min-bal* 500)
+
+
+(defn withdraw
+  "Withdraw amount from acc. Minimum balance is 500"
+  [acc amount]
+  (dosync
+   (let [curr (:balance acc)]
+     (if (> (- @curr amount) *min-bal*)
+       (alter curr - amount)
+       :insufficient-funds))))
+
+
+(comment
+
+(def *acc (make-account "Satish Talim" 5000))
+(deposit *acc 500)
+(account-balance *acc)
+(withdraw *acc 20)
+(account-balance *acc)
+
+(binding [*min-bal* 0]
+  (withdraw *acc 5000))
+
+)
+</pre>
+
+<h2><a name="compile">5.7 Compiling using Clojure Box</a> <img src="http://rubylearning.com/images/coffee_cup.gif" alt="Java"  /></h2>
+<p>When Clojure source files are executed as scripts, they are compiled to Java bytecode at runtime. These .class files can be used in Java applications.</p>
+<p>Shawn Hoover, the creator of Clojure Box has this to say:</p>
+<blockquote><p><em>"I made Clojure Box mainly so people would have a quick and easy REPL. Of course all of Emacs is there and people will want to use it. Unfortunately swank-clojure is not as refined for compilation and running projects like Enclojure might be (I would actually recommend Enclojure over Clojure Box for beginners these days).<br /><br />The bottom line is you can achieve what you want, but it takes some manual steps. Note that M-x means to type Alt-x. C-x is Control-x. C-w is Control-w. M-x allows you to execute a command by typing a command name. After typing M-x, you are presented with a prompt to type a command name - make-directory, cd, swank-clojure-project, and shell are commands you can type at that prompt. Some commands then present an additional prompt related to the command."</em></p></blockquote>
+
+<p>Let us write a <b>test.clj</b> Clojure program as follows:</p>
+<ul>
+<li>Select a namespace for the source files to be compiled, for example, <b>test.test</b>.</li>
+<li>Make one of the source files have the same name as the last part of the namespace. We'll call this the main source file. For example, <b>test.clj</b>.</li>
+<li>Create a directory structure that works with <b>swank-clojure-project</b> of Clojure Box. Open a command window and create the following directory structure <b>c:\users\talim\myproject\src\test</b> and <b>c:\users\talim\myproject\classes</b>. Close this command window.</li>
+<li>The folder <b>c:\users\talim\myproject\src\test</b> will store the source file namely <b>test.clj</b>.</li>
+<li>Specify the namespace at the top of the main source file and include the <b>:gen-class</b> namespace directive. For example: <b>(ns test.test (:gen-class))</b>. Clojure has a stand-alone utility for generating Java classes in the <b>gen-class</b> macro. When code containing these calls is compiled, it generates byte-code for the specified classes and writes them into class files.</li>
+<li>In the main source file, use the <b><a href="http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/load">load</a></b> function to load all the other source files in the same namespace with relative paths. In our case we do not have any other source file apart from <b>test.clj</b>.</li>
+<li>In each of the other source files, use the <b>in-ns</b> function (explained in the next section) to set their namespace.</li>
+</ul>
+<p>Here's the code for the <b>test.clj</b> program:</p>
+<pre class="brush: clojure">
+(ns test.test (:gen-class))
+
+(defn -main
+  ([greetee]
+  (println (str "Hello " greetee "!")))
+  ([] (-main "world")))
+</pre>
+
+<p>Now at the REPL, type the following:</p>
+<pre class="brush: clojure">
+M-x cd c:\users\talim\myproject
+</pre>
+<p>So the above "<b>M-x cd c:\users\talim\myproject</b>" means:<br />
+Type <b>Alt-x</b><br />
+At the prompt type <b>cd ENTER</b><br />
+At the next prompt type <b>c:\users\talim\myproject</b> and <b>ENTER</b><br />
+Next type:</p>
+<pre class="brush: clojure">
+M-x swank-clojure-project c:\users\talim\myproject
+</pre>
+<p>So the above "<b>M-x swank-clojure-project c:\users\talim\myproject</b>" means:<br />
+Type <b>Alt-x</b><br />
+At the prompt type <b>swank-clojure-project ENTER</b><br />
+At the next prompt (Project root:) type the name of the directory that contains src\test\test.clj i.e. <b>c:\users\talim\myproject</b> and <b>ENTER</b>.<br />
+You probably already have a slime repl running, so it will say "Buffer has a running process; kill it? (yes or no)". Type <b>yes</b> to kill the existing repl and start a new one that has the classpath set up based on your project directory structure (the classpath must have the clojure.jar installed with Clojure Box, your src directory, and your classes directory for compilation to work--these things are all set up automatically by the swank-clojure-project function).</p>
+<p>At the REPL, type:</p>
+<pre class="brush: clojure">
+(compile 'test.test)
+; => test.test
+</pre>
+<p>To execute the program, type the following at the REPL:</p>
+<pre class="brush: clojure">
+M-x shell ENTER
+</pre>
+<p>At the REPL, you will see: <b>c:\users\talim\myproject</b>.</p>
+<p>A separate .class file is produced for each function. They are written under the "classes" directory in a directory structure that corresponds to their namespace. If the compiled namespace has a function named <b>-main</b>, it can be run as a Java application. Command-line arguments are passed as arguments to that function.</p>
+<p>At the REPL type:</p>
+<pre class="brush: clojure">
+java -cp "c:\Program Files\Clojure Box\lib\clojure.jar";classes test.test
+; => Hello world!
+</pre>
+<p>That should work.</p>
+
+
+<h2><a name="ref">References</a></h2>
+<ul>
+<li><a href="http://clojure.org/">Clojure Home</a>.</li>
+<li><a href="http://java.ociweb.com/mark/clojure/article.html">Clojure - Functional Programming for the JVM</a> by R. Mark Volkmann.</li>
+<li><a href="http://clojuredocs.org/">Clojure Docs</a>.</li>
+<li><a href="http://faustus.webatu.com/clj-quick-ref.html">Clojure Quick Reference</a>.</li>
+<li><a href="http://www.pragprog.com/titles/shcloj/programming-clojure">Programming Clojure</a> by Stuart Halloway.</li>
+<li><a href="http://www.manning.com/fogus/">The Joy of Clojure</a> by Michael Fogus and Chris Houser.</li>
+<li><a href="http://www.manning.com/rathore/">Clojure in Action</a> by Amit Rathore.</li>
+<li><a href="http://apress.com/book/view/1430272317">Practical Clojure</a> by Luke Van der Hart.</li>
+<li><a href="http://en.wikibooks.org/wiki/Clojure_Programming/Concepts">Clojure Programming/Concepts</a>.</li>
+<li><a href="http://peepcode.com/products/functional-programming-with-clojure">Functional Programming with Clojure Screencast</a> by PeepCode.</li>
+</ul>
+
+<p class="copyright" style="color : #0000CC;"><b>Note</b>: The material in these study notes is drawn primarily from some of the references mentioned above. Our acknowledgment and thanks to all of them.<br />I would also like to thank <b>Baishampayan Ghose</b>, <b>Daniel Solano Gomez</b> and last but not the least <b>Michael Kohl</b> for proofreading these notes.<br />Feedback and suggestions to <b>satishtalim [at] gmail [dot] com</b><br />Copyright &copy; 2012 RubyLearning.org | This page was last updated on <b>1st Sept. 2011</b>.</p>
+</div>
+<!-- Syntax highlighter -->
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+</body>
+</html>
